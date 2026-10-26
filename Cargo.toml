@@ -1,0 +1,43 @@
+[workspace]
+resolver = "2"
+members = ["sdk", "sdk-derive", "."]
+
+[workspace.package]
+license = "AGPL-3.0-only"
+
+[package]
+name = "lovelycarve-ios-backup"
+version = "1.2.0"
+edition = "2021"
+license = "AGPL-3.0-only"
+
+[lib]
+name = "ios_backup"
+crate-type = ["cdylib", "rlib"]
+
+[[bin]]
+name = "ios-backup-cli"
+path = "src/bin/cli.rs"
+
+[dependencies]
+lovelycarve-plugin = { path = "sdk", default-features = false, features = ["loader"] }
+rusqlite = { version = "0.40", features = ["bundled", "limits"] }
+plist = { version = "1", default-features = false }
+aes = "0.8"
+sha1 = "0.10"
+macos-unifiedlogs = "0.7"
+chrono = { version = "0.4", default-features = false, features = ["std", "clock"] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+sha2 = "0.10"
+tempfile = "3"
+
+[dev-dependencies]
+lovelycarve-plugin = { path = "sdk", default-features = false, features = ["testing", "loader"] }
+
+[profile.release]
+panic = "unwind"
+opt-level = "s"
+lto = true
+codegen-units = 1
+strip = true
