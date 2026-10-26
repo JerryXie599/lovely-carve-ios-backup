@@ -1,0 +1,269 @@
+id = "org.lovelycarve.iosbackup"
+name = "iOS备份与Sysdiagnose取证"
+version = "1.1.0"
+protocol = 2
+library = "ios_backup"
+memory = "1GiB"
+
+[[analyzer]]
+id = "ios_backup"
+name = "iOS备份综合取证分析"
+scope = "evidence"
+trigger = "manual"
+category = "baseinfo"
+inputs = [
+    "Manifest.plist",
+    "Info.plist",
+    "Status.plist",
+    "**/Manifest.plist",
+    "**/bluetooth_status.txt",
+    "**/BDC_Once*.csv",
+    "**/BatteryHealth.log",
+    "**/mobile_installation.log*",
+    "**/itunesstored.log",
+    "**/com.apple.MobileBackup.plist",
+    "**/com.apple.powerd.bdc.plist",
+    "**/SystemVersion.plist",
+    "**/*.PLSQL",
+    "**/*.plsql",
+    "**/*.PLSQL-wal",
+    "**/*.PLSQL-shm",
+    "**/sms.db",
+    "**/sms.db-wal",
+    "**/AddressBook.sqlitedb",
+    "**/AddressBook.sqlitedb.db",
+    "**/CallHistory.storedata",
+    "**/CallHistory.storedata.db",
+    "**/call_history.db",
+    "**/com.apple.wifi.plist",
+    "**/com.apple.wifi-private-mac-networks.plist",
+    "**/com.apple.MobileBluetooth.ledevices.paired.db",
+    "**/com.apple.MobileBluetooth.ledevices.other.db",
+    "**/com.apple.MobileBluetooth.devices.plist",
+    "**/Accounts3.sqlite",
+    "**/Photos.sqlite",
+    "**/NoteStore.sqlite",
+    "**/*.tracev3",
+    "**/*.timesync",
+    "**/DeliveredNotifications.plist",
+    "**/ComparableKeychainBackup.plist",
+    "**/History.db",
+]
+
+[[analyzer]]
+id = "powerlog_files"
+name = "Powerlog数据库深度归纳"
+scope = "files"
+extensions = ["plsql", "sqlite", "db", "plsql-wal", "plsql-shm", "sqlite-wal", "sqlite-shm", "db-wal", "db-shm"]
+trigger = "manual"
+category = "ios"
+
+[[analyzer]]
+id = "log_archive"
+name = "系统日志深度分析（tracev3）"
+scope = "evidence"
+trigger = "manual"
+category = "log"
+inputs = ["**/*.tracev3", "**/*.timesync"]
+
+[[analyzer.option]]
+id = "keyword"
+type = "text"
+label = "关键词过滤（进程/子系统/消息；留空=仅输出 Error/Fault 级）"
+default = ""
+
+[[analyzer.option]]
+id = "limit"
+type = "text"
+label = "最大输出条数（默认 20000）"
+default = "20000"
+
+[[analyzer]]
+id = "ios_comm"
+name = "iOS通讯信息（短信/通话/通讯录/通知）"
+scope = "evidence"
+trigger = "manual"
+category = "comm"
+inputs = [
+    "Manifest.plist",
+    "Info.plist",
+    "Status.plist",
+    "**/Manifest.plist",
+    "**/bluetooth_status.txt",
+    "**/BDC_Once*.csv",
+    "**/BatteryHealth.log",
+    "**/mobile_installation.log*",
+    "**/com.apple.MobileBackup.plist",
+    "**/com.apple.powerd.bdc.plist",
+    "**/SystemVersion.plist",
+    "**/*.PLSQL",
+    "**/*.plsql",
+    "**/sms.db",
+    "**/AddressBook.sqlitedb",
+    "**/AddressBook.sqlitedb.db",
+    "**/CallHistory.storedata",
+    "**/CallHistory.storedata.db",
+    "**/call_history.db",
+    "**/com.apple.wifi.plist",
+    "**/com.apple.wifi-private-mac-networks.plist",
+    "**/com.apple.MobileBluetooth.ledevices.paired.db",
+    "**/com.apple.MobileBluetooth.ledevices.other.db",
+    "**/Accounts3.sqlite",
+    "**/Photos.sqlite",
+    "**/NoteStore.sqlite",
+    "**/DeliveredNotifications.plist",
+    "**/ComparableKeychainBackup.plist",
+    "**/History.db",
+]
+
+[[analyzer]]
+id = "ios_apps"
+name = "iOS应用信息（清单/安装/时长/浏览器）"
+scope = "evidence"
+trigger = "manual"
+category = "appinfo"
+inputs = [
+    "Manifest.plist",
+    "Info.plist",
+    "Status.plist",
+    "**/Manifest.plist",
+    "**/bluetooth_status.txt",
+    "**/BDC_Once*.csv",
+    "**/BatteryHealth.log",
+    "**/mobile_installation.log*",
+    "**/com.apple.MobileBackup.plist",
+    "**/com.apple.powerd.bdc.plist",
+    "**/SystemVersion.plist",
+    "**/*.PLSQL",
+    "**/*.plsql",
+    "**/sms.db",
+    "**/AddressBook.sqlitedb",
+    "**/AddressBook.sqlitedb.db",
+    "**/CallHistory.storedata",
+    "**/CallHistory.storedata.db",
+    "**/call_history.db",
+    "**/com.apple.wifi.plist",
+    "**/com.apple.wifi-private-mac-networks.plist",
+    "**/com.apple.MobileBluetooth.ledevices.paired.db",
+    "**/com.apple.MobileBluetooth.ledevices.other.db",
+    "**/Accounts3.sqlite",
+    "**/Photos.sqlite",
+    "**/NoteStore.sqlite",
+    "**/DeliveredNotifications.plist",
+    "**/ComparableKeychainBackup.plist",
+    "**/History.db",
+]
+
+[[analyzer]]
+id = "ios_connect"
+name = "iOS设备连接（蓝牙/WiFi/账户/钥匙串）"
+scope = "evidence"
+trigger = "manual"
+category = "connect"
+inputs = [
+    "Manifest.plist",
+    "Info.plist",
+    "Status.plist",
+    "**/Manifest.plist",
+    "**/bluetooth_status.txt",
+    "**/BDC_Once*.csv",
+    "**/BatteryHealth.log",
+    "**/mobile_installation.log*",
+    "**/com.apple.MobileBackup.plist",
+    "**/com.apple.powerd.bdc.plist",
+    "**/SystemVersion.plist",
+    "**/*.PLSQL",
+    "**/*.plsql",
+    "**/sms.db",
+    "**/AddressBook.sqlitedb",
+    "**/AddressBook.sqlitedb.db",
+    "**/CallHistory.storedata",
+    "**/CallHistory.storedata.db",
+    "**/call_history.db",
+    "**/com.apple.wifi.plist",
+    "**/com.apple.wifi-private-mac-networks.plist",
+    "**/com.apple.MobileBluetooth.ledevices.paired.db",
+    "**/com.apple.MobileBluetooth.ledevices.other.db",
+    "**/Accounts3.sqlite",
+    "**/Photos.sqlite",
+    "**/NoteStore.sqlite",
+    "**/DeliveredNotifications.plist",
+    "**/ComparableKeychainBackup.plist",
+    "**/History.db",
+]
+
+[[analyzer]]
+id = "ios_power"
+name = "iOS电池与屏幕（电池/充电/解锁/亮屏）"
+scope = "evidence"
+trigger = "manual"
+category = "power"
+inputs = [
+    "Manifest.plist",
+    "Info.plist",
+    "Status.plist",
+    "**/Manifest.plist",
+    "**/bluetooth_status.txt",
+    "**/BDC_Once*.csv",
+    "**/BatteryHealth.log",
+    "**/mobile_installation.log*",
+    "**/com.apple.MobileBackup.plist",
+    "**/com.apple.powerd.bdc.plist",
+    "**/SystemVersion.plist",
+    "**/*.PLSQL",
+    "**/*.plsql",
+    "**/sms.db",
+    "**/AddressBook.sqlitedb",
+    "**/AddressBook.sqlitedb.db",
+    "**/CallHistory.storedata",
+    "**/CallHistory.storedata.db",
+    "**/call_history.db",
+    "**/com.apple.wifi.plist",
+    "**/com.apple.wifi-private-mac-networks.plist",
+    "**/com.apple.MobileBluetooth.ledevices.paired.db",
+    "**/com.apple.MobileBluetooth.ledevices.other.db",
+    "**/Accounts3.sqlite",
+    "**/Photos.sqlite",
+    "**/NoteStore.sqlite",
+    "**/DeliveredNotifications.plist",
+    "**/ComparableKeychainBackup.plist",
+    "**/History.db",
+]
+
+[[analyzer]]
+id = "ios_media"
+name = "iOS媒体（相册/笔记）"
+scope = "evidence"
+trigger = "manual"
+category = "media"
+inputs = [
+    "Manifest.plist",
+    "Info.plist",
+    "Status.plist",
+    "**/Manifest.plist",
+    "**/bluetooth_status.txt",
+    "**/BDC_Once*.csv",
+    "**/BatteryHealth.log",
+    "**/mobile_installation.log*",
+    "**/com.apple.MobileBackup.plist",
+    "**/com.apple.powerd.bdc.plist",
+    "**/SystemVersion.plist",
+    "**/*.PLSQL",
+    "**/*.plsql",
+    "**/sms.db",
+    "**/AddressBook.sqlitedb",
+    "**/AddressBook.sqlitedb.db",
+    "**/CallHistory.storedata",
+    "**/CallHistory.storedata.db",
+    "**/call_history.db",
+    "**/com.apple.wifi.plist",
+    "**/com.apple.wifi-private-mac-networks.plist",
+    "**/com.apple.MobileBluetooth.ledevices.paired.db",
+    "**/com.apple.MobileBluetooth.ledevices.other.db",
+    "**/Accounts3.sqlite",
+    "**/Photos.sqlite",
+    "**/NoteStore.sqlite",
+    "**/DeliveredNotifications.plist",
+    "**/ComparableKeychainBackup.plist",
+    "**/History.db",
+]
