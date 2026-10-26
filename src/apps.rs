@@ -273,15 +273,19 @@ pub fn generic_im(run: &Run, f: &FileRef, sides: &[FileRef], app: &str) -> lovel
             break;
         }
         let tl = table.to_lowercase();
-        if !tl.contains("message") && !tl.contains("msg") && !tl.contains("chat") {
+        if !(tl.contains("message") || tl.contains("msg") || tl.contains("chat")
+            || tl.contains("conversation") || tl.contains("session") || tl.contains("dialog")
+            || tl.contains("p2p") || tl.contains("troop") || tl.contains("muc")
+            || tl.contains("sms") || tl.contains("im_") || tl.ends_with("_im"))
+        {
             continue;
         }
         let c = cols(&conn, table);
-        let Some(content) = pick(&c, &["content", "msg_content", "msgContent", "text", "body", "message", "ztext", "rawcontent"]) else { continue };
-        let ts = pick(&c, &["create_time", "created_at", "timestamp", "time", "msg_time", "send_time", "date", "date_sent", "date_received", "send_date", "zmessagedate"]);
-        let sender = pick(&c, &["sender_id", "senderid", "sender", "from_uid", "from_id", "user_id", "member_id", "sender_jid", "fromjid", "author"]);
-        let talker = pick(&c, &["chat_id", "talker_id", "group_id", "session_id", "conversation_id", "peer_id", "thread_id", "zcontactjid", "dialog_id", "target_id"]);
-        let is_send = pick(&c, &["is_send", "is_sender", "from_me", "isself", "send_flag", "zisfromme"]);
+        let Some(content) = pick(&c, &["content", "msg_content", "msgContent", "text", "body", "message", "ztext", "rawcontent", "rawContent", "msgContent", "content_text", "msgContent", "message_content", "msgbody", "msgBody"]) else { continue };
+        let ts = pick(&c, &["create_time", "created_at", "timestamp", "time", "msg_time", "send_time", "date", "date_sent", "date_received", "send_date", "zmessagedate", "sendtime", "send_time", "msgtime", "createtime", "senttime", "receivedtime", "msgdate", "send_date_v2", "local_time"]);
+        let sender = pick(&c, &["sender_id", "senderid", "sender", "from_uid", "from_id", "user_id", "member_id", "sender_jid", "fromjid", "author", "fromID", "fromUid", "senderuid", "sender_uid", "senduserid", "senduser", "srcid", "speakid", "msgfromid"]);
+        let talker = pick(&c, &["chat_id", "talker_id", "group_id", "session_id", "conversation_id", "peer_id", "thread_id", "zcontactjid", "dialog_id", "target_id", "toID", "toUid", "receiveuserid", "receiver_id", "troopid", "groupid", "chatname"]);
+        let is_send = pick(&c, &["is_send", "is_sender", "from_me", "isself", "send_flag", "zisfromme", "issend", "is_from_me", "direction", "msgdir"]);
         let mut sel = vec![format!("[{content}]")];
         for x in [ts, sender, talker, is_send].into_iter().flatten() {
             sel.push(format!("[{x}]"));
@@ -305,7 +309,11 @@ pub fn generic_im(run: &Run, f: &FileRef, sides: &[FileRef], app: &str) -> lovel
             let is_send_v: Option<i64> = if cnt > 4 { r.get(4).unwrap_or(None) } else { None };
             let raw = body.unwrap_or_default();
             let (b, s2) = if raw.starts_with('{') {
-                parse_json_field(&raw, &["content", "desc", "text", "body"], &["sender_id", "senderId", "user_id"])
+                parse_json_field(
+                    &raw,
+                    &["content", "desc", "text", "body", "msgContent", "message", "title", "caption"],
+                    &["sender_id", "senderId", "user_id", "senderUid", "fromUid", "fromID", "sender", "userId"],
+                )
             } else {
                 (raw, String::new())
             };
@@ -350,6 +358,16 @@ pub fn route(run: &Run, f: &FileRef, sides: &[FileRef]) -> lovelycarve_plugin::R
     }
     match lower.as_str() {
         "privatemessage.db" => xiaohongshu_msg(run, f, sides),
+        "chatstorage.sqlite" => whatsapp_msg(run, f, sides),
+        "message.sqlite" => {
+            // Message.sqlite：Kakao 专属列名（message/createdAt/userId）命中则按 Kakao，否则按通用处理
+            let n = kakao_msg(run, f, sides)?;
+            if n == 0 {
+                return generic_im(run, f, sides, "PP聊天");
+            }
+            return Ok(n);
+        }
+        "history_message.db" => history_message(run, f, sides),
         "_message_zhihu_im.db" => zhihu_msg(run, f, sides),
         n if n.starts_with("bbimdb") => bilibili_msg(run, f, sides),
         "chat.db" if view_contains(f, "kimi") => generic_im(run, f, sides, "Kimi"),
@@ -807,5 +825,171 @@ pub fn is_app_db(lower_name: &str) -> bool {
         | "messages-store.sqlite" | "fmdb.sqlite" | "zim_global.db" | "wind.sqlite"
         | "atimdb.db" | "atkitimdb.db" | "session.db" | "iktcjchatdata.db"
         | "im_message.db" | "im_groupmessage.db" | "infos.db" | "xmppmessagearchiving.sqlite"
+        | "history_message.db"
     ) || lower_name.starts_with("bbimdb")
+}
+
+
+// ---------- WhatsApp：ZWAMESSAGE join ZWACHATSESSION ----------
+pub fn whatsapp_msg(run: &Run, f: &FileRef, sides: &[FileRef]) -> lovelycarve_plugin::Result<usize> {
+    let (_t, conn) = app_db(f, sides).map_err(|e| lovelycarve_plugin::Error::new("DB_OPEN", e))?;
+    if !table_exists(&conn, "ZWAMESSAGE") {
+        return generic_im(run, f, sides, "WhatsApp");
+    }
+    let join = if table_exists(&conn, "ZWACHATSESSION") {
+        " LEFT JOIN ZWACHATSESSION s ON s.Z_PK = m.ZCHATSESSION"
+    } else {
+        ""
+    };
+    let has_session = join.contains("ZWACHATSESSION");
+    let sql = format!(
+        "SELECT m.ZTEXT, m.ZMESSAGEDATE, m.ZFROMJID, {} FROM ZWAMESSAGE m{join}",
+        if has_session { "s.ZPARTNERNAME" } else { "NULL" }
+    );
+    let mut stmt = match conn.prepare(&sql) {
+        Ok(s) => s,
+        Err(_) => return generic_im(run, f, sides, "WhatsApp"),
+    };
+    let mut rows = stmt.query([]).map_err(|e| lovelycarve_plugin::Error::new("SQL", e.to_string()))?;
+    let mut n = 0usize;
+    while let Ok(Some(r)) = rows.next() {
+        let text: Option<String> = r.get(0).unwrap_or(None);
+        let date: Option<f64> = r.get(1).unwrap_or(None);
+        let from: Option<String> = r.get(2).unwrap_or(None);
+        let partner: Option<String> = r.get(3).unwrap_or(None);
+        let from_s = from.unwrap_or_default();
+        let dir = if from_s.contains("@s.whatsapp.net") && !from_s.starts_with("86") && !from_s.starts_with('+') {
+            ""
+        } else {
+            ""
+        };
+        let _ = dir;
+        run.record_values(
+            "ios.app_msg",
+            vec![
+                "WhatsApp".into(),
+                partner.unwrap_or_default().into(),
+                from_s.into(),
+                text.unwrap_or_default().into(),
+                ts_or_nil(apple(date.unwrap_or_default())),
+                "".into(),
+            ],
+        )
+        .from(f)
+        .emit()?;
+        n += 1;
+    }
+    Ok(n)
+}
+
+// ---------- Kakao：Message.sqlite（Message 表）+ Talk.sqlite（ZUSER） ----------
+pub fn kakao_msg(run: &Run, f: &FileRef, sides: &[FileRef]) -> lovelycarve_plugin::Result<usize> {
+    let (_t, conn) = app_db(f, sides).map_err(|e| lovelycarve_plugin::Error::new("DB_OPEN", e))?;
+    let mut n = 0usize;
+    let tables: Vec<String> = list_tables(&conn)
+        .into_iter()
+        .filter(|t| {
+            let tl = t.to_lowercase();
+            tl.contains("message") || tl.contains("chat") || tl.contains("msg")
+        })
+        .collect();
+    for table in &tables {
+        let c = cols(&conn, table);
+        let Some(content) = pick(&c, &["message", "text", "content", "body"]) else { continue };
+        let ts = pick(&c, &["createdat", "created_at", "time", "timestamp", "sentat", "date"]);
+        let sender = pick(&c, &["userid", "user_id", "senderid", "sender_id", "senderuid"]);
+        let room = pick(&c, &["chatid", "chat_id", "roomid", "room_id"]);
+        let mut sel = vec![format!("[{content}]")];
+        for x in [ts, sender, room].into_iter().flatten() {
+            sel.push(format!("[{x}]"));
+        }
+        let mut stmt = match conn.prepare(&format!("SELECT {} FROM [{table}]", sel.join(", "))) {
+            Ok(s) => s,
+            Err(_) => continue,
+        };
+        let cnt = stmt.column_count();
+        let mut rows = match stmt.query([]) { Ok(r) => r, Err(_) => continue };
+        while let Ok(Some(r)) = rows.next() {
+            let body: Option<String> = r.get(0).unwrap_or(None);
+            let ts_v: Option<f64> = if cnt > 1 { r.get(1).unwrap_or(None) } else { None };
+            let sender_v: Option<String> = if cnt > 2 { r.get(2).unwrap_or(None) } else { None };
+            let room_v: Option<String> = if cnt > 3 { r.get(3).unwrap_or(None) } else { None };
+            run.record_values(
+                "ios.app_msg",
+                vec![
+                    "KakaoTalk".into(),
+                    room_v.unwrap_or_default().into(),
+                    sender_v.unwrap_or_default().into(),
+                    body.unwrap_or_default().into(),
+                    ts_or_nil(apple(ts_v.unwrap_or_default()).or_else(|| unix(ts_v.unwrap_or_default()))),
+                    "".into(),
+                ],
+            )
+            .from(f)
+            .emit()?;
+            n += 1;
+        }
+    }
+    Ok(n)
+}
+
+// ---------- history_message.db（dialog_info_store：dialog_id/message_type/send_time/sender_id/target_id） ----------
+pub fn history_message(run: &Run, f: &FileRef, sides: &[FileRef]) -> lovelycarve_plugin::Result<usize> {
+    let (_t, conn) = app_db(f, sides).map_err(|e| lovelycarve_plugin::Error::new("DB_OPEN", e))?;
+    let mut n = 0usize;
+    for table in list_tables(&conn) {
+        let c = cols(&conn, &table);
+        let send_time = pick(&c, &["send_time", "sendtime", "time"]);
+        let sender = pick(&c, &["sender_id", "senderid", "sender"]);
+        let content = pick(&c, &["content", "raw_content", "rawcontent", "text", "body"]);
+        let dialog = pick(&c, &["dialog_id", "dialogid", "target_id"]);
+        let mtype = pick(&c, &["message_type", "messagetype"]);
+        let mut sel = vec![];
+        for x in [content, send_time, sender, dialog, mtype].into_iter().flatten() {
+            sel.push(format!("[{x}]"));
+        }
+        if sel.is_empty() {
+            continue;
+        }
+        let mut stmt = match conn.prepare(&format!("SELECT {} FROM [{table}] LIMIT 20001", sel.join(", "))) {
+            Ok(s) => s,
+            Err(_) => continue,
+        };
+        let cnt = stmt.column_count();
+        let mut rows = match stmt.query([]) { Ok(r) => r, Err(_) => continue };
+        while let Ok(Some(r)) = rows.next() {
+            let mut i = 0usize;
+            let next_s = |i: &mut usize| -> Option<String> {
+                let v: Option<String> = if *i < cnt { r.get(*i).unwrap_or(None) } else { None };
+                *i += 1;
+                v
+            };
+            let next_f = |i: &mut usize| -> Option<f64> {
+                let v: Option<f64> = if *i < cnt { r.get(*i).unwrap_or(None) } else { None };
+                *i += 1;
+                v
+            };
+            let body = if content.is_some() { next_s(&mut i) } else { None };
+            let ts_v = if send_time.is_some() { next_f(&mut i) } else { None };
+            let sender_v = if sender.is_some() { next_s(&mut i) } else { None };
+            let dialog_v = if dialog.is_some() { next_s(&mut i) } else { None };
+            let _mtype_v = if mtype.is_some() { next_s(&mut i) } else { None };
+            run.record_values(
+                "ios.app_msg",
+                vec![
+                    "国际IM".into(),
+                    dialog_v.unwrap_or_default().into(),
+                    sender_v.unwrap_or_default().into(),
+                    body.unwrap_or_default().into(),
+                    ts_or_nil(unix(ts_v.unwrap_or_default()).or_else(|| apple(ts_v.unwrap_or_default()))),
+                    "".into(),
+                ],
+            )
+            .from(f)
+            .emit()?;
+            n += 1;
+            if n >= 20000 { return Ok(n); }
+        }
+    }
+    Ok(n)
 }

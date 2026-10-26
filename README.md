@@ -37,3 +37,11 @@
 - 备份口令不做爆破（KeyBag DPIC 可达千万次迭代）；加密状态与密钥包参数如实呈现。
 - 备份文件树浏览（Manifest.db）由 LovelyCarve 宿主内置能力提供，本插件不重复实现。
 - sms/通话/联系人/相册等业务库解析未包含（本类检材无对应数据文件）。
+
+## v1.1.0 更新
+
+- 通用消息解析器列名/表名候选全面扩展（覆盖 122 个应用配置的逆向归纳：fromID/toID/rawContent、send_time/dialog_id/target_id、ZTEXT/ZMESSAGEDATE 等）
+- 新增专属解析：WhatsApp（ChatStorage 会话联查）、KakaoTalk（Message.sqlite）、国际 IM history_message（dialog_info_store）
+- 新增通话记录通用解析器（duration/date/address 列探测）
+- 复合文件名尾部对齐路由 +182 项（合计 330+ 应用数据库识别）
+- 全部结论与时间字段标注时区（UTC+8 / UTC / 设备本地）

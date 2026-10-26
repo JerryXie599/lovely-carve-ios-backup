@@ -35,6 +35,8 @@ fn parses_backup_databases() {
         "*/ChatStorage.sqlite",
         "*/amap.db",
         "*/calls.db",
+        "*/Message.sqlite",
+        "*/history_message.db",
     ];
     let run = harness
         .run_with_inputs("ios_backup", Fixture::evidence(&[("root", root)]), &inputs, Default::default(), Default::default())
@@ -118,5 +120,8 @@ fn parses_backup_databases() {
     assert!(amsg.iter().any(|r| r.text("app") == Some("高德地图主库") && r.text("name") == Some("西单商场")), "amap glued");
     let wacalls = run.of_type("ios.calllog");
     assert!(wacalls.iter().any(|r| r.text("name") == Some("高德地图主库") || r.text("phone") == Some("+8613700137000")), "calls.db");
-    println!("backup_db 全部断言通过（含 glued 系）");
+    let msgs = run.of_type("ios.app_msg");
+    assert!(msgs.iter().any(|r| r.text("app") == Some("KakaoTalk") && r.text("content").unwrap_or("").contains("Kakao")), "Kakao消息");
+    assert!(msgs.iter().any(|r| r.text("app") == Some("国际IM") && r.text("content") == Some("国际IM历史消息正文")), "history_message");
+    println!("backup_db 全部断言通过（含 glued + 专属 v1.1 系）");
 }

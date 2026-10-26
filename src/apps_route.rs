@@ -183,7 +183,6 @@ pub fn app_display_name(lower_db: &str) -> Option<&'static str> {
         "matrix-sdk-event-cache.sqlite3" => "Element事件",
         "matrix-sdk-state.sqlite3" => "Element状态",
         "matrix-sdk-media.sqlite3" => "Element媒体",
-        "history_message.db" => "国际IM历史",
         "session_database.db" => "会话数据库",
         "_contact.db" | "_contact_friends.db" => "国际IM联系人",
         "pengpeng_common.sqlite" | "pengpeng_function.sqlite" | "pengpeng_general.sqlite" => "碰碰IM",
