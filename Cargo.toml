@@ -1,0 +1,52 @@
+[workspace]
+resolver = "2"
+members = ["sdk", "sdk-derive", "."]
+
+[workspace.package]
+license = "AGPL-3.0-only"
+
+[package]
+name = "iosparser-plugin"
+version = "0.1.0"
+edition = "2021"
+license = "AGPL-3.0-only"
+description = "LovelyCarve iOS backup analyzer (iosbaseinfo): device info, contacts, calls, SMS"
+publish = false
+
+[lib]
+name = "ios_backup"
+crate-type = ["cdylib"]
+
+[features]
+default = ["mod-chat"]
+mod-chat = []
+
+[dependencies]
+lovelycarve-plugin = { path = "sdk" }
+aes = "0.8"
+chrono = { version = "0.4", default-features = false, features = ["std", "clock"] }
+macos-unifiedlogs = "0.7"
+plist = { version = "1", default-features = false }
+rusqlite = { version = "0.40", features = ["bundled"] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+sha1 = "0.10"
+sha2 = "0.10"
+tempfile = "3"
+
+[dev-dependencies]
+lovelycarve-plugin = { path = "sdk", features = ["testing"] }
+
+[lints.rust]
+# MSVC link.exe reports the import library it creates for every DLL.
+linker_messages = "allow"
+
+[lints.clippy]
+uninlined_format_args = "warn"
+
+[profile.release]
+panic = "unwind"
+opt-level = "s"
+lto = true
+codegen-units = 1
+strip = true

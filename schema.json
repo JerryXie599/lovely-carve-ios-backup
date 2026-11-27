@@ -1,0 +1,3764 @@
+{
+  "protocol": 2,
+  "plugin": "org.lovelycarve.iosbackup",
+  "sdk": "0.2.0",
+  "analyzers": [
+    "ios_backup",
+    "ios_comm",
+    "ios_whatsapp",
+    "ios_icloud",
+    "ios_airdrop",
+    "ios_coreduet",
+    "ios_photos",
+    "ios_apps",
+    "ios_connect",
+    "ios_power",
+    "ios_media",
+    "log_archive",
+    "powerlog_files"
+  ],
+  "filesystems": [],
+  "records": [
+    {
+      "type": "profile.fact",
+      "label": "检材画像",
+      "title": "{key}",
+      "fields": [
+        {
+          "id": "key",
+          "label": "键",
+          "kind": "text",
+          "key": true
+        },
+        {
+          "id": "value",
+          "label": "值",
+          "kind": "json"
+        },
+        {
+          "id": "system",
+          "label": "系统",
+          "kind": "text"
+        }
+      ]
+    },
+    {
+      "type": "ios.backup",
+      "label": "备份信息",
+      "category": "abasic",
+      "fields": [
+        {
+          "id": "device_name",
+          "label": "设备名称（DeviceName）",
+          "kind": "text"
+        },
+        {
+          "id": "display_name",
+          "label": "显示名称（DisplayName）",
+          "kind": "text"
+        },
+        {
+          "id": "product_name",
+          "label": "系统名称（ProductName）",
+          "kind": "text"
+        },
+        {
+          "id": "product_type",
+          "label": "系统类型（ProductType）",
+          "kind": "text"
+        },
+        {
+          "id": "model",
+          "label": "营销型号",
+          "kind": "text"
+        },
+        {
+          "id": "product_version",
+          "label": "系统版本（ProductVersion）",
+          "kind": "text"
+        },
+        {
+          "id": "build_version",
+          "label": "构建版本（BuildVersion）",
+          "kind": "text"
+        },
+        {
+          "id": "serial_number",
+          "label": "序列号（SerialNumber）",
+          "kind": "text",
+          "key": true
+        },
+        {
+          "id": "udid",
+          "label": "UDID",
+          "kind": "text"
+        },
+        {
+          "id": "imei",
+          "label": "IMEI",
+          "kind": "text"
+        },
+        {
+          "id": "iccid",
+          "label": "ICCID",
+          "kind": "text"
+        },
+        {
+          "id": "phone_number",
+          "label": "手机号码（PhoneNumber）",
+          "kind": "text"
+        },
+        {
+          "id": "backup_time",
+          "label": "备份时间（UTC+8，BackupTime）",
+          "kind": "timestamp"
+        },
+        {
+          "id": "backup_time_utc",
+          "label": "备份时间（UTC 原值）",
+          "kind": "timestamp"
+        },
+        {
+          "id": "backup_time_raw",
+          "label": "备份时间原始值",
+          "kind": "text"
+        },
+        {
+          "id": "version",
+          "label": "备份格式版本",
+          "kind": "text"
+        },
+        {
+          "id": "system_domains_version",
+          "label": "系统域版本",
+          "kind": "text"
+        },
+        {
+          "id": "encrypt",
+          "label": "是否加密",
+          "kind": "bool"
+        },
+        {
+          "id": "was_passcode_set",
+          "label": "是否设置锁屏密码（WasPasscodeSet）",
+          "kind": "bool"
+        },
+        {
+          "id": "app_count",
+          "label": "备份内应用数",
+          "kind": "int"
+        },
+        {
+          "id": "path",
+          "label": "备份路径",
+          "kind": "path"
+        }
+      ]
+    },
+    {
+      "type": "ios.device_info",
+      "label": "设备属性",
+      "category": "abasic",
+      "fields": [
+        {
+          "id": "key",
+          "label": "键名（Key）",
+          "kind": "text",
+          "key": true
+        },
+        {
+          "id": "name",
+          "label": "名称（Name）",
+          "kind": "text"
+        },
+        {
+          "id": "value",
+          "label": "内容（Value）",
+          "kind": "text"
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "kind": "text"
+        }
+      ]
+    },
+    {
+      "type": "ios.keybag",
+      "label": "备份密钥包（BackupKeyBag）",
+      "category": "abasic",
+      "properties": {
+        "value": "value",
+        "label": "key",
+        "secondary": "note"
+      },
+      "fields": [
+        {
+          "id": "key",
+          "label": "参数",
+          "kind": "text",
+          "key": true
+        },
+        {
+          "id": "value",
+          "label": "值",
+          "kind": "text"
+        },
+        {
+          "id": "note",
+          "label": "说明",
+          "kind": "text"
+        }
+      ]
+    },
+    {
+      "type": "ios.app",
+      "label": "应用清单",
+      "category": "bappinfo",
+      "fields": [
+        {
+          "id": "bundle",
+          "label": "包名",
+          "kind": "text",
+          "key": true
+        },
+        {
+          "id": "app_name",
+          "label": "显示名（桌面/导入记录）",
+          "kind": "text"
+        },
+        {
+          "id": "store_name",
+          "label": "存储名（App Store）",
+          "kind": "text"
+        },
+        {
+          "id": "version_name",
+          "label": "版本名称（VersionName）",
+          "kind": "text"
+        },
+        {
+          "id": "bundle_version",
+          "label": "构建号（CFBundleVersion）",
+          "kind": "text"
+        },
+        {
+          "id": "system_flag",
+          "label": "应用类型（SystemFlag）",
+          "kind": "text"
+        },
+        {
+          "id": "placeholder",
+          "label": "占位标识",
+          "kind": "bool"
+        },
+        {
+          "id": "domain_size",
+          "label": "备份数据体积",
+          "kind": "size"
+        },
+        {
+          "id": "domain",
+          "label": "备份域",
+          "kind": "text"
+        },
+        {
+          "id": "data_path",
+          "label": "数据目录（检材内路径）",
+          "kind": "path"
+        },
+        {
+          "id": "install_time",
+          "label": "首次安装请求时间（InstallTime）",
+          "kind": "timestamp"
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "kind": "text"
+        }
+      ]
+    },
+    {
+      "type": "ios.install_event",
+      "label": "安装卸载事件",
+      "category": "bappinfo",
+      "fields": [
+        {
+          "id": "time",
+          "label": "时间（设备本地=UTC+8）",
+          "kind": "timestamp"
+        },
+        {
+          "id": "action",
+          "label": "动作",
+          "kind": "text"
+        },
+        {
+          "id": "bundle",
+          "label": "包名",
+          "kind": "text",
+          "key": true
+        },
+        {
+          "id": "app_name",
+          "label": "应用显示名",
+          "kind": "text"
+        },
+        {
+          "id": "version",
+          "label": "版本",
+          "kind": "text"
+        },
+        {
+          "id": "detail",
+          "label": "事件明细",
+          "kind": "text"
+        },
+        {
+          "id": "requested_by",
+          "label": "发起进程",
+          "kind": "text"
+        }
+      ]
+    },
+    {
+      "type": "ios.data_usage",
+      "label": "网络流量与进程使用",
+      "title": "{app_name} ({bundle}) 流量使用",
+      "category": "bappinfo",
+      "fields": [
+        {
+          "id": "app_name",
+          "label": "应用名称",
+          "kind": "text",
+          "key": true
+        },
+        {
+          "id": "bundle",
+          "label": "应用包名",
+          "kind": "text"
+        },
+        {
+          "id": "process",
+          "label": "进程名称",
+          "kind": "text"
+        },
+        {
+          "id": "start_time",
+          "label": "开始时间",
+          "kind": "timestamp",
+          "timeline": "process_start"
+        },
+        {
+          "id": "time",
+          "label": "记录时间",
+          "kind": "timestamp",
+          "timeline": "data_usage"
+        },
+        {
+          "id": "wifi_in",
+          "label": "WiFi下载流量",
+          "kind": "size"
+        },
+        {
+          "id": "wifi_out",
+          "label": "WiFi上传流量",
+          "kind": "size"
+        },
+        {
+          "id": "wwan_in",
+          "label": "数据下载流量",
+          "kind": "size"
+        },
+        {
+          "id": "wwan_out",
+          "label": "数据上传流量",
+          "kind": "size"
+        },
+        {
+          "id": "kind",
+          "label": "类别编号",
+          "kind": "int"
+        }
+      ]
+    },
+    {
+      "type": "ios.bluetooth_state",
+      "label": "本机蓝牙状态",
+      "category": "dconnect",
+      "properties": {
+        "value": "value",
+        "label": "item",
+        "secondary": "note"
+      },
+      "fields": [
+        {
+          "id": "item",
+          "label": "事项",
+          "kind": "text",
+          "key": true
+        },
+        {
+          "id": "value",
+          "label": "值",
+          "kind": "text"
+        },
+        {
+          "id": "note",
+          "label": "说明",
+          "kind": "text"
+        }
+      ]
+    },
+    {
+      "type": "ios.battery",
+      "label": "电池信息",
+      "category": "epower",
+      "properties": {
+        "value": "value",
+        "label": "item",
+        "secondary": "note"
+      },
+      "fields": [
+        {
+          "id": "item",
+          "label": "事项",
+          "kind": "text",
+          "key": true
+        },
+        {
+          "id": "value",
+          "label": "值",
+          "kind": "text"
+        },
+        {
+          "id": "note",
+          "label": "依据与来源",
+          "kind": "text"
+        }
+      ]
+    },
+    {
+      "type": "ios.charge_full",
+      "label": "充至100%记录",
+      "category": "epower",
+      "fields": [
+        {
+          "id": "session",
+          "label": "充电会话",
+          "kind": "int",
+          "key": true
+        },
+        {
+          "id": "raw_ts",
+          "label": "充至100%原始时间戳",
+          "kind": "text"
+        },
+        {
+          "id": "reached",
+          "label": "充至100%（UTC+8）",
+          "kind": "timestamp"
+        },
+        {
+          "id": "fully_charged",
+          "label": "FullyCharged=1 首条（UTC+8）",
+          "kind": "timestamp"
+        },
+        {
+          "id": "last_seen",
+          "label": "最后一条100%记录（UTC+8）",
+          "kind": "timestamp"
+        },
+        {
+          "id": "samples",
+          "label": "100%采样数",
+          "kind": "int"
+        },
+        {
+          "id": "charge_start",
+          "label": "会话前充电起点（UTC+8）",
+          "kind": "timestamp"
+        },
+        {
+          "id": "detail",
+          "label": "口径说明",
+          "kind": "text"
+        }
+      ]
+    },
+    {
+      "type": "ios.unlock",
+      "label": "解锁锁定事件",
+      "category": "epower",
+      "fields": [
+        {
+          "id": "time",
+          "label": "时间（UTC+8）",
+          "kind": "timestamp",
+          "timeline": "screen_unlock"
+        },
+        {
+          "id": "raw_ts",
+          "label": "原始时间戳",
+          "kind": "text"
+        },
+        {
+          "id": "action",
+          "label": "动作",
+          "kind": "text",
+          "key": true
+        },
+        {
+          "id": "trigger_app",
+          "label": "触发/首个前台应用",
+          "kind": "text"
+        },
+        {
+          "id": "screen_chain",
+          "label": "解锁后屏幕状态链",
+          "kind": "text"
+        },
+        {
+          "id": "prev_locked_span",
+          "label": "此前锁定持续（秒，相邻观测）",
+          "kind": "duration"
+        }
+      ]
+    },
+    {
+      "type": "ios.lock_interval",
+      "label": "锁定状态区间",
+      "category": "epower",
+      "fields": [
+        {
+          "id": "state",
+          "label": "状态",
+          "kind": "text",
+          "key": true
+        },
+        {
+          "id": "start",
+          "label": "开始观测（UTC+8）",
+          "kind": "timestamp"
+        },
+        {
+          "id": "end",
+          "label": "结束观测（UTC+8）",
+          "kind": "timestamp"
+        },
+        {
+          "id": "seconds",
+          "label": "推定秒数",
+          "kind": "duration"
+        },
+        {
+          "id": "points",
+          "label": "同状态观测数",
+          "kind": "int"
+        }
+      ]
+    },
+    {
+      "type": "ios.screen_interval",
+      "label": "亮屏息屏区间",
+      "category": "epower",
+      "fields": [
+        {
+          "id": "state",
+          "label": "状态",
+          "kind": "text",
+          "key": true
+        },
+        {
+          "id": "start",
+          "label": "开始观测（UTC+8）",
+          "kind": "timestamp"
+        },
+        {
+          "id": "end",
+          "label": "结束观测（UTC+8）",
+          "kind": "timestamp"
+        },
+        {
+          "id": "seconds",
+          "label": "推定秒数",
+          "kind": "duration"
+        },
+        {
+          "id": "points",
+          "label": "同状态观测数",
+          "kind": "int"
+        }
+      ]
+    },
+    {
+      "type": "ios.app_usage",
+      "label": "应用前后台时长",
+      "category": "bappinfo",
+      "fields": [
+        {
+          "id": "bundle",
+          "label": "包名",
+          "kind": "text",
+          "key": true
+        },
+        {
+          "id": "name",
+          "label": "应用名",
+          "kind": "text"
+        },
+        {
+          "id": "foreground",
+          "label": "前台秒",
+          "kind": "duration"
+        },
+        {
+          "id": "background",
+          "label": "后台秒",
+          "kind": "duration"
+        },
+        {
+          "id": "samples",
+          "label": "汇总记录数",
+          "kind": "int"
+        },
+        {
+          "id": "first",
+          "label": "最早（UTC+8）",
+          "kind": "timestamp"
+        },
+        {
+          "id": "last",
+          "label": "最晚（UTC+8）",
+          "kind": "timestamp"
+        }
+      ]
+    },
+    {
+      "type": "ios.battery_daily",
+      "label": "电池每日采样",
+      "category": "epower",
+      "fields": [
+        {
+          "id": "day",
+          "label": "日期（UTC+8）",
+          "kind": "text",
+          "key": true
+        },
+        {
+          "id": "samples",
+          "label": "采样数",
+          "kind": "int"
+        },
+        {
+          "id": "level_min",
+          "label": "最低电量%",
+          "kind": "float"
+        },
+        {
+          "id": "level_max",
+          "label": "最高电量%",
+          "kind": "float"
+        },
+        {
+          "id": "temp_min",
+          "label": "最低温度°C",
+          "kind": "float"
+        },
+        {
+          "id": "temp_max",
+          "label": "最高温度°C",
+          "kind": "float"
+        },
+        {
+          "id": "cycle_latest",
+          "label": "最后采样循环数",
+          "kind": "float"
+        }
+      ]
+    },
+    {
+      "type": "ios.setting",
+      "label": "系统设置摘要",
+      "category": "abasic",
+      "fields": [
+        {
+          "id": "key",
+          "label": "键",
+          "kind": "text",
+          "key": true
+        },
+        {
+          "id": "value",
+          "label": "值",
+          "kind": "text"
+        },
+        {
+          "id": "first",
+          "label": "首次观测（UTC+8）",
+          "kind": "timestamp"
+        },
+        {
+          "id": "last",
+          "label": "末次观测（UTC+8）",
+          "kind": "timestamp"
+        },
+        {
+          "id": "observations",
+          "label": "观测数",
+          "kind": "int"
+        }
+      ]
+    },
+    {
+      "type": "ios.finding",
+      "label": "取证发现",
+      "title": "{item}：{finding}",
+      "category": "abasic",
+      "properties": {
+        "value": "finding",
+        "label": "item",
+        "secondary": "meaning"
+      },
+      "fields": [
+        {
+          "id": "item",
+          "label": "事项",
+          "kind": "text",
+          "key": true
+        },
+        {
+          "id": "finding",
+          "label": "结论",
+          "kind": "text"
+        },
+        {
+          "id": "meaning",
+          "label": "依据、来源与口径",
+          "kind": "text"
+        }
+      ]
+    },
+    {
+      "type": "ios.sms",
+      "label": "短信",
+      "category": "ccomm",
+      "fields": [
+        {
+          "id": "phone",
+          "label": "号码",
+          "kind": "text",
+          "key": true
+        },
+        {
+          "id": "content",
+          "label": "内容",
+          "kind": "text"
+        },
+        {
+          "id": "time",
+          "label": "时间（UTC+8）",
+          "kind": "timestamp",
+          "timeline": "sms_time"
+        },
+        {
+          "id": "direction",
+          "label": "方向",
+          "kind": "text"
+        },
+        {
+          "id": "is_read",
+          "label": "已读",
+          "kind": "text"
+        },
+        {
+          "id": "service",
+          "label": "服务",
+          "kind": "text"
+        },
+        {
+          "id": "attachment",
+          "label": "附件",
+          "kind": "path"
+        }
+      ]
+    },
+    {
+      "type": "ios.calllog",
+      "label": "通话记录",
+      "category": "ccomm",
+      "fields": [
+        {
+          "id": "phone",
+          "label": "号码",
+          "kind": "text",
+          "key": true
+        },
+        {
+          "id": "name",
+          "label": "联系人",
+          "kind": "text"
+        },
+        {
+          "id": "duration",
+          "label": "时长（秒）",
+          "kind": "duration"
+        },
+        {
+          "id": "time",
+          "label": "时间（UTC+8）",
+          "kind": "timestamp",
+          "timeline": "call_time"
+        },
+        {
+          "id": "kind",
+          "label": "类型",
+          "kind": "text"
+        },
+        {
+          "id": "app",
+          "label": "来源应用",
+          "kind": "text"
+        }
+      ]
+    },
+    {
+      "type": "ios.contact",
+      "label": "通讯录",
+      "category": "ccomm",
+      "fields": [
+        {
+          "id": "name",
+          "label": "姓名",
+          "kind": "text",
+          "key": true
+        },
+        {
+          "id": "phones",
+          "label": "电话",
+          "kind": "text"
+        },
+        {
+          "id": "emails",
+          "label": "邮箱",
+          "kind": "text"
+        },
+        {
+          "id": "org",
+          "label": "组织",
+          "kind": "text"
+        },
+        {
+          "id": "note",
+          "label": "备注",
+          "kind": "text"
+        },
+        {
+          "id": "created",
+          "label": "创建时间（UTC+8）",
+          "kind": "timestamp"
+        },
+        {
+          "id": "modified",
+          "label": "修改时间（UTC+8）",
+          "kind": "timestamp"
+        }
+      ]
+    },
+    {
+      "type": "ios.wifi",
+      "label": "WiFi网络",
+      "category": "dconnect",
+      "fields": [
+        {
+          "id": "ssid",
+          "label": "SSID",
+          "kind": "text",
+          "key": true
+        },
+        {
+          "id": "password",
+          "label": "密码",
+          "kind": "text"
+        },
+        {
+          "id": "security",
+          "label": "加密类型",
+          "kind": "text"
+        },
+        {
+          "id": "auto_join",
+          "label": "自动加入",
+          "kind": "text"
+        },
+        {
+          "id": "last_joined",
+          "label": "最后连接（UTC+8）",
+          "kind": "timestamp"
+        },
+        {
+          "id": "first_joined",
+          "label": "首次连接（UTC+8）",
+          "kind": "timestamp"
+        },
+        {
+          "id": "bssid",
+          "label": "BSSID",
+          "kind": "text"
+        },
+        {
+          "id": "hotspot",
+          "label": "是否个人热点",
+          "kind": "text"
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "kind": "text"
+        }
+      ]
+    },
+    {
+      "type": "ios.bt_device",
+      "label": "蓝牙设备",
+      "category": "dconnect",
+      "fields": [
+        {
+          "id": "name",
+          "label": "名称",
+          "kind": "text",
+          "key": true
+        },
+        {
+          "id": "mac",
+          "label": "MAC地址",
+          "kind": "text"
+        },
+        {
+          "id": "last_seen",
+          "label": "最后发现（UTC+8）",
+          "kind": "timestamp"
+        },
+        {
+          "id": "last_conn",
+          "label": "最后连接（UTC+8）",
+          "kind": "timestamp",
+          "timeline": "bt_connected"
+        },
+        {
+          "id": "state",
+          "label": "配对状态",
+          "kind": "text"
+        }
+      ]
+    },
+    {
+      "type": "ios.account",
+      "label": "账户",
+      "category": "dconnect",
+      "fields": [
+        {
+          "id": "username",
+          "label": "用户名",
+          "kind": "text",
+          "key": true
+        },
+        {
+          "id": "account_type",
+          "label": "账户类型",
+          "kind": "text"
+        },
+        {
+          "id": "description",
+          "label": "描述",
+          "kind": "text"
+        },
+        {
+          "id": "date",
+          "label": "时间（UTC+8）",
+          "kind": "timestamp"
+        },
+        {
+          "id": "bundle",
+          "label": "归属应用",
+          "kind": "text"
+        }
+      ]
+    },
+    {
+      "type": "ios.coreduet_attachment",
+      "label": "传输工件（分享附件）",
+      "category": "ginteraction",
+      "fields": [
+        {
+          "id": "interaction_pk",
+          "label": "交互记录号",
+          "kind": "int"
+        },
+        {
+          "id": "source_app",
+          "label": "来源应用",
+          "kind": "text"
+        },
+        {
+          "id": "target_app",
+          "label": "目标渠道",
+          "kind": "text"
+        },
+        {
+          "id": "uti",
+          "label": "文件类型（UTI）",
+          "kind": "text",
+          "key": true
+        },
+        {
+          "id": "size",
+          "label": "字节数",
+          "kind": "int"
+        },
+        {
+          "id": "photo_uuid",
+          "label": "照片 UUID",
+          "kind": "text"
+        },
+        {
+          "id": "url",
+          "label": "内容 URL",
+          "kind": "text"
+        },
+        {
+          "id": "text",
+          "label": "内容文本",
+          "kind": "text"
+        },
+        {
+          "id": "person",
+          "label": "照片中人物",
+          "kind": "text"
+        },
+        {
+          "id": "scene",
+          "label": "场景描述",
+          "kind": "text"
+        },
+        {
+          "id": "time",
+          "label": "时间（UTC+8）",
+          "kind": "timestamp"
+        },
+        {
+          "id": "recipient",
+          "label": "接收方",
+          "kind": "text"
+        },
+        {
+          "id": "orphan",
+          "label": "孤儿标记",
+          "kind": "text"
+        }
+      ]
+    },
+    {
+      "type": "ios.coreduet_contact",
+      "label": "交互联系人（长期统计）",
+      "category": "ginteraction",
+      "fields": [
+        {
+          "id": "name",
+          "label": "名称",
+          "kind": "text",
+          "key": true
+        },
+        {
+          "id": "handle",
+          "label": "账号标识",
+          "kind": "text"
+        },
+        {
+          "id": "custom_id",
+          "label": "平台原生 ID",
+          "kind": "text"
+        },
+        {
+          "id": "handle_type",
+          "label": "标识类型",
+          "kind": "text"
+        },
+        {
+          "id": "person_id",
+          "label": "通讯录关联",
+          "kind": "text"
+        },
+        {
+          "id": "person_link",
+          "label": "通讯录关联状态",
+          "kind": "text"
+        },
+        {
+          "id": "recv_count",
+          "label": "对方发来次数",
+          "kind": "int"
+        },
+        {
+          "id": "sent_count",
+          "label": "本机发出次数",
+          "kind": "int"
+        },
+        {
+          "id": "cc_count",
+          "label": "同收次数",
+          "kind": "int"
+        },
+        {
+          "id": "first_recv",
+          "label": "首次被联系（UTC+8）",
+          "kind": "timestamp"
+        },
+        {
+          "id": "last_recv",
+          "label": "末次被联系（UTC+8）",
+          "kind": "timestamp"
+        },
+        {
+          "id": "first_sent",
+          "label": "首次发出（UTC+8）",
+          "kind": "timestamp"
+        },
+        {
+          "id": "last_sent",
+          "label": "末次发出（UTC+8）",
+          "kind": "timestamp"
+        },
+        {
+          "id": "created",
+          "label": "记录建立（UTC+8）",
+          "kind": "timestamp"
+        },
+        {
+          "id": "kind",
+          "label": "类别",
+          "kind": "text"
+        }
+      ]
+    },
+    {
+      "type": "ios.photos_qr",
+      "label": "照片二维码与条码载荷",
+      "title": "[{symbology}] {payload}",
+      "category": "fphotos",
+      "fields": [
+        {
+          "id": "filename",
+          "label": "文件名",
+          "kind": "text",
+          "key": true
+        },
+        {
+          "id": "symbology",
+          "label": "码制类型",
+          "kind": "text"
+        },
+        {
+          "id": "payload",
+          "label": "解码内容/载荷",
+          "kind": "text"
+        },
+        {
+          "id": "confidence",
+          "label": "置信度",
+          "kind": "float"
+        },
+        {
+          "id": "created",
+          "label": "照片拍摄时间",
+          "kind": "timestamp",
+          "timeline": "qr_photo_created"
+        },
+        {
+          "id": "source_app",
+          "label": "保存来源 App",
+          "kind": "text"
+        },
+        {
+          "id": "asset_path",
+          "label": "检材媒体路径",
+          "kind": "path"
+        },
+        {
+          "id": "directory",
+          "label": "目录",
+          "kind": "text",
+          "hidden": true
+        },
+        {
+          "id": "location",
+          "label": "拍摄坐标",
+          "kind": "text",
+          "hidden": true
+        },
+        {
+          "id": "uuid",
+          "label": "资产 UUID",
+          "kind": "text",
+          "hidden": true
+        },
+        {
+          "id": "unsigned_id",
+          "label": "内部特征码",
+          "kind": "int",
+          "hidden": true
+        }
+      ]
+    },
+    {
+      "type": "ios.photos_tombstone",
+      "label": "永久删除记录 (最近删除清空日志)",
+      "title": "永久删除：{entity} #{entity_pk}",
+      "category": "fphotos",
+      "fields": [
+        {
+          "id": "entity",
+          "label": "实体类型",
+          "kind": "text",
+          "key": true
+        },
+        {
+          "id": "entity_pk",
+          "label": "原记录主键",
+          "kind": "int"
+        },
+        {
+          "id": "recovered_filename",
+          "label": "WAL还原文件名",
+          "kind": "text"
+        },
+        {
+          "id": "original_filesize",
+          "label": "原始文件大小(字节)",
+          "kind": "int"
+        },
+        {
+          "id": "cloud_master_guid",
+          "label": "云端主唯一标识符 (ZCLOUDMASTERGUID)",
+          "kind": "text"
+        },
+        {
+          "id": "created",
+          "label": "原拍摄/生成时间（UTC+8）",
+          "kind": "timestamp"
+        },
+        {
+          "id": "trashed_date",
+          "label": "入回收站时间（UTC+8）",
+          "kind": "timestamp",
+          "timeline": "photo_trashed"
+        },
+        {
+          "id": "trash_delay_secs",
+          "label": "拍摄至入回收站耗时(秒)",
+          "kind": "float"
+        },
+        {
+          "id": "trashed_reason",
+          "label": "移入回收站原因",
+          "kind": "text"
+        },
+        {
+          "id": "delete_time",
+          "label": "彻底删除时间（UTC+8）",
+          "kind": "timestamp",
+          "timeline": "photo_expunged"
+        },
+        {
+          "id": "delete_reason",
+          "label": "永久删除原因",
+          "kind": "text"
+        },
+        {
+          "id": "cloud_delete_state",
+          "label": "云端/本地清除状态",
+          "kind": "text"
+        },
+        {
+          "id": "uuid",
+          "label": "原资产 UUID",
+          "kind": "text"
+        },
+        {
+          "id": "cloud_guid",
+          "label": "云端资产 GUID (ZCLOUDASSETGUID)",
+          "kind": "text"
+        },
+        {
+          "id": "imported_by",
+          "label": "保存来源应用",
+          "kind": "text"
+        },
+        {
+          "id": "process",
+          "label": "执行进程",
+          "kind": "text"
+        },
+        {
+          "id": "context",
+          "label": "事务上下文",
+          "kind": "text"
+        }
+      ]
+    },
+    {
+      "type": "ios.photos_wal_history",
+      "label": "WAL/SHM 历史版本与已删恢复",
+      "title": "Z_PK #{asset_pk} · {filename} ({record_state})",
+      "category": "fphotos",
+      "fields": [
+        {
+          "id": "asset_pk",
+          "label": "资产主键",
+          "kind": "int",
+          "key": true
+        },
+        {
+          "id": "filename",
+          "label": "文件名 (ZFILENAME)",
+          "kind": "text"
+        },
+        {
+          "id": "original_filename",
+          "label": "原始文件名",
+          "kind": "text"
+        },
+        {
+          "id": "original_filesize",
+          "label": "原始文件大小(字节)",
+          "kind": "int"
+        },
+        {
+          "id": "cloud_master_guid",
+          "label": "云端主唯一标识符 (ZCLOUDMASTERGUID)",
+          "kind": "text"
+        },
+        {
+          "id": "record_state",
+          "label": "记录生命周期状态",
+          "kind": "text"
+        },
+        {
+          "id": "wal_status",
+          "label": "WAL 帧状态",
+          "kind": "text"
+        },
+        {
+          "id": "wal_frame",
+          "label": "WAL 帧号",
+          "kind": "int"
+        },
+        {
+          "id": "wal_commit",
+          "label": "WAL 提交序号",
+          "kind": "int"
+        },
+        {
+          "id": "page_no",
+          "label": "数据库页号",
+          "kind": "int"
+        },
+        {
+          "id": "created",
+          "label": "拍摄/生成时间（UTC+8）",
+          "kind": "timestamp",
+          "timeline": "photo_created"
+        },
+        {
+          "id": "trashed_date",
+          "label": "移入回收站时间（UTC+8）",
+          "kind": "timestamp",
+          "timeline": "photo_trashed"
+        },
+        {
+          "id": "trash_delay_secs",
+          "label": "拍摄至入回收站耗时(秒)",
+          "kind": "float"
+        },
+        {
+          "id": "trashed_state",
+          "label": "回收站状态",
+          "kind": "text"
+        },
+        {
+          "id": "trashed_reason",
+          "label": "移入回收站原因",
+          "kind": "text"
+        },
+        {
+          "id": "delete_time",
+          "label": "彻底删除时间（UTC+8）",
+          "kind": "timestamp",
+          "timeline": "photo_expunged"
+        },
+        {
+          "id": "delete_reason",
+          "label": "永久删除原因",
+          "kind": "text"
+        },
+        {
+          "id": "imported_by",
+          "label": "保存来源应用",
+          "kind": "text"
+        },
+        {
+          "id": "added",
+          "label": "加入相册（UTC+8）",
+          "kind": "timestamp",
+          "hidden": true
+        },
+        {
+          "id": "directory",
+          "label": "存储目录",
+          "kind": "text",
+          "hidden": true
+        },
+        {
+          "id": "uuid",
+          "label": "资产 UUID",
+          "kind": "text",
+          "hidden": true
+        },
+        {
+          "id": "width",
+          "label": "宽度(px)",
+          "kind": "int",
+          "hidden": true
+        },
+        {
+          "id": "height",
+          "label": "高度(px)",
+          "kind": "int",
+          "hidden": true
+        },
+        {
+          "id": "duration",
+          "label": "时长(秒)",
+          "kind": "float",
+          "hidden": true
+        },
+        {
+          "id": "favorite",
+          "label": "收藏",
+          "kind": "text",
+          "hidden": true
+        },
+        {
+          "id": "hidden",
+          "label": "隐藏",
+          "kind": "text",
+          "hidden": true
+        }
+      ]
+    },
+    {
+      "type": "ios.photos_wal_meta",
+      "label": "WAL/SHM 与主键空洞概览",
+      "title": "{item}：{value}",
+      "category": "fphotos",
+      "fields": [
+        {
+          "id": "item",
+          "label": "检查项",
+          "kind": "text",
+          "key": true
+        },
+        {
+          "id": "value",
+          "label": "关键结果",
+          "kind": "text"
+        },
+        {
+          "id": "status",
+          "label": "状态说明",
+          "kind": "text"
+        },
+        {
+          "id": "detail",
+          "label": "详细取证数据",
+          "kind": "text"
+        }
+      ]
+    },
+    {
+      "type": "ios.photos_share",
+      "label": "照片分享记录（渠道未知）",
+      "category": "fphotos",
+      "fields": [
+        {
+          "id": "direction",
+          "label": "方向",
+          "kind": "text",
+          "key": true
+        },
+        {
+          "id": "file",
+          "label": "文件名",
+          "kind": "text",
+          "key": true
+        },
+        {
+          "id": "time",
+          "label": "分享时间（UTC+8）",
+          "kind": "timestamp"
+        },
+        {
+          "id": "peer",
+          "label": "对端",
+          "kind": "text"
+        },
+        {
+          "id": "channel",
+          "label": "渠道",
+          "kind": "text"
+        },
+        {
+          "id": "detail",
+          "label": "说明",
+          "kind": "text"
+        }
+      ]
+    },
+    {
+      "type": "ios.coreduet_event",
+      "label": "交互事件",
+      "category": "ginteraction",
+      "fields": [
+        {
+          "id": "event_pk",
+          "label": "记录号",
+          "kind": "int",
+          "key": true
+        },
+        {
+          "id": "source_app",
+          "label": "来源应用",
+          "kind": "text"
+        },
+        {
+          "id": "target_app",
+          "label": "目标渠道",
+          "kind": "text"
+        },
+        {
+          "id": "direction",
+          "label": "方向",
+          "kind": "text"
+        },
+        {
+          "id": "direction_code",
+          "label": "方向码",
+          "kind": "int"
+        },
+        {
+          "id": "mechanism",
+          "label": "通道",
+          "kind": "text"
+        },
+        {
+          "id": "mechanism_code",
+          "label": "通道码",
+          "kind": "int"
+        },
+        {
+          "id": "recipient_count",
+          "label": "接收方数（标称）",
+          "kind": "int"
+        },
+        {
+          "id": "group_name",
+          "label": "群名",
+          "kind": "text"
+        },
+        {
+          "id": "domain_id",
+          "label": "对端标识（JID/会话 ID）",
+          "kind": "text"
+        },
+        {
+          "id": "derived_intent",
+          "label": "派生意图标识",
+          "kind": "text"
+        },
+        {
+          "id": "account",
+          "label": "本机账户",
+          "kind": "text"
+        },
+        {
+          "id": "sender_name",
+          "label": "发送方名称",
+          "kind": "text"
+        },
+        {
+          "id": "sender_handle",
+          "label": "发送方标识",
+          "kind": "text"
+        },
+        {
+          "id": "recipients",
+          "label": "接收方",
+          "kind": "text"
+        },
+        {
+          "id": "attachment_count",
+          "label": "附件数",
+          "kind": "int"
+        },
+        {
+          "id": "attachments",
+          "label": "附件类型",
+          "kind": "text"
+        },
+        {
+          "id": "content_url",
+          "label": "内容 URL",
+          "kind": "text"
+        },
+        {
+          "id": "is_response",
+          "label": "是回复",
+          "kind": "text"
+        },
+        {
+          "id": "start",
+          "label": "开始（UTC+8）",
+          "kind": "timestamp"
+        },
+        {
+          "id": "end",
+          "label": "结束（UTC+8）",
+          "kind": "timestamp"
+        },
+        {
+          "id": "duration",
+          "label": "时长（秒）",
+          "kind": "duration"
+        },
+        {
+          "id": "created",
+          "label": "写入时间（UTC+8）",
+          "kind": "timestamp"
+        },
+        {
+          "id": "updated",
+          "label": "更新时间（UTC+8）",
+          "kind": "timestamp"
+        },
+        {
+          "id": "uuid",
+          "label": "事件 UUID",
+          "kind": "text"
+        },
+        {
+          "id": "notes",
+          "label": "说明",
+          "kind": "text"
+        }
+      ]
+    },
+    {
+      "type": "ios.coreduet_store",
+      "label": "交互库元信息",
+      "category": "ginteraction",
+      "fields": [
+        {
+          "id": "item",
+          "label": "条目",
+          "kind": "text",
+          "key": true
+        },
+        {
+          "id": "value",
+          "label": "数值",
+          "kind": "int"
+        },
+        {
+          "id": "time",
+          "label": "时间（UTC+8）",
+          "kind": "timestamp"
+        },
+        {
+          "id": "detail",
+          "label": "详情",
+          "kind": "text"
+        }
+      ]
+    },
+    {
+      "type": "ios.coreduet_keyword",
+      "label": "交互关键词",
+      "category": "ginteraction",
+      "fields": [
+        {
+          "id": "keyword",
+          "label": "关键词",
+          "kind": "text",
+          "key": true
+        },
+        {
+          "id": "source_app",
+          "label": "来源应用",
+          "kind": "text"
+        },
+        {
+          "id": "event_pk",
+          "label": "关联记录号",
+          "kind": "int"
+        },
+        {
+          "id": "time",
+          "label": "时间（UTC+8）",
+          "kind": "timestamp"
+        }
+      ]
+    },
+    {
+      "type": "ios.photos_asset",
+      "label": "相册照片与视频",
+      "title": "{filename} ({media_type})",
+      "category": "fphotos",
+      "fields": [
+        {
+          "id": "filename",
+          "label": "现存文件名",
+          "kind": "text",
+          "key": true
+        },
+        {
+          "id": "original_filename",
+          "label": "原始文件名",
+          "kind": "text"
+        },
+        {
+          "id": "media_type",
+          "label": "媒体类型",
+          "kind": "text"
+        },
+        {
+          "id": "subtype",
+          "label": "子类型",
+          "kind": "text"
+        },
+        {
+          "id": "created",
+          "label": "拍摄时间",
+          "kind": "timestamp",
+          "timeline": "photo_created"
+        },
+        {
+          "id": "added",
+          "label": "入库时间",
+          "kind": "timestamp",
+          "timeline": "photo_added"
+        },
+        {
+          "id": "source",
+          "label": "来源渠道",
+          "kind": "text"
+        },
+        {
+          "id": "source_app",
+          "label": "保存来源 App",
+          "kind": "text"
+        },
+        {
+          "id": "location_flag",
+          "label": "定位异常告警",
+          "kind": "text"
+        },
+        {
+          "id": "reverse_geo",
+          "label": "反向地理编码地址",
+          "kind": "text"
+        },
+        {
+          "id": "location",
+          "label": "GPS 坐标",
+          "kind": "text"
+        },
+        {
+          "id": "hidden",
+          "label": "已隐藏",
+          "kind": "text"
+        },
+        {
+          "id": "deleted",
+          "label": "最近删除状态",
+          "kind": "text"
+        },
+        {
+          "id": "asset_path",
+          "label": "检材媒体路径",
+          "kind": "path"
+        },
+        {
+          "id": "directory",
+          "label": "目录",
+          "kind": "text",
+          "hidden": true
+        },
+        {
+          "id": "modified",
+          "label": "修改时间",
+          "kind": "timestamp",
+          "hidden": true
+        },
+        {
+          "id": "exif_time",
+          "label": "EXIF 原始时间",
+          "kind": "text",
+          "hidden": true
+        },
+        {
+          "id": "tz_name",
+          "label": "拍摄时区",
+          "kind": "text",
+          "hidden": true
+        },
+        {
+          "id": "tz_offset",
+          "label": "时区偏移",
+          "kind": "text",
+          "hidden": true
+        },
+        {
+          "id": "exif_lat",
+          "label": "EXIF 纬度",
+          "kind": "float",
+          "hidden": true
+        },
+        {
+          "id": "exif_lon",
+          "label": "EXIF 经度",
+          "kind": "float",
+          "hidden": true
+        },
+        {
+          "id": "make",
+          "label": "相机制造商",
+          "kind": "text",
+          "hidden": true
+        },
+        {
+          "id": "model",
+          "label": "相机型号",
+          "kind": "text",
+          "hidden": true
+        },
+        {
+          "id": "lens",
+          "label": "镜头型号",
+          "kind": "text",
+          "hidden": true
+        },
+        {
+          "id": "focal_length",
+          "label": "焦距(mm)",
+          "kind": "float",
+          "hidden": true
+        },
+        {
+          "id": "aperture",
+          "label": "光圈(f/)",
+          "kind": "float",
+          "hidden": true
+        },
+        {
+          "id": "shutter",
+          "label": "快门速度",
+          "kind": "text",
+          "hidden": true
+        },
+        {
+          "id": "iso",
+          "label": "ISO 感光度",
+          "kind": "int",
+          "hidden": true
+        },
+        {
+          "id": "flash",
+          "label": "闪光灯",
+          "kind": "text",
+          "hidden": true
+        },
+        {
+          "id": "hdr",
+          "label": "HDR 类型",
+          "kind": "text",
+          "hidden": true
+        },
+        {
+          "id": "width",
+          "label": "宽度(px)",
+          "kind": "int",
+          "hidden": true
+        },
+        {
+          "id": "height",
+          "label": "高度(px)",
+          "kind": "int",
+          "hidden": true
+        },
+        {
+          "id": "orientation",
+          "label": "方向",
+          "kind": "int",
+          "hidden": true
+        },
+        {
+          "id": "duration",
+          "label": "时长(秒)",
+          "kind": "float",
+          "hidden": true
+        },
+        {
+          "id": "filesize",
+          "label": "文件大小",
+          "kind": "size",
+          "hidden": true
+        },
+        {
+          "id": "original_filesize",
+          "label": "原始文件大小(字节)",
+          "kind": "int",
+          "hidden": true
+        },
+        {
+          "id": "uti",
+          "label": "类型标识(UTI)",
+          "kind": "text",
+          "hidden": true
+        },
+        {
+          "id": "favorite",
+          "label": "已收藏",
+          "kind": "text",
+          "hidden": true
+        },
+        {
+          "id": "trashed_date",
+          "label": "移入回收站时间",
+          "kind": "timestamp",
+          "hidden": true,
+          "timeline": "photo_trashed"
+        },
+        {
+          "id": "trashed_reason",
+          "label": "移入回收站原因",
+          "kind": "text",
+          "hidden": true
+        },
+        {
+          "id": "trash_delay_secs",
+          "label": "拍摄至入回收站耗时(秒)",
+          "kind": "float",
+          "hidden": true
+        },
+        {
+          "id": "adjusted",
+          "label": "已修图/裁剪",
+          "kind": "text",
+          "hidden": true
+        },
+        {
+          "id": "burst_uuid",
+          "label": "连拍组 UUID",
+          "kind": "text",
+          "hidden": true
+        },
+        {
+          "id": "live_photo_uuid",
+          "label": "实况照片组ID",
+          "kind": "text",
+          "hidden": true
+        },
+        {
+          "id": "cloud_status",
+          "label": "iCloud 同步状态",
+          "kind": "text",
+          "hidden": true
+        },
+        {
+          "id": "cloud_guid",
+          "label": "iCloud 资产 GUID (ZCLOUDASSETGUID)",
+          "kind": "text",
+          "hidden": true
+        },
+        {
+          "id": "cloud_master_guid",
+          "label": "云端主唯一标识符 (ZCLOUDMASTERGUID)",
+          "kind": "text",
+          "hidden": true
+        },
+        {
+          "id": "shared_by",
+          "label": "共享者",
+          "kind": "text",
+          "hidden": true
+        },
+        {
+          "id": "view_count",
+          "label": "浏览次数",
+          "kind": "int",
+          "hidden": true
+        },
+        {
+          "id": "play_count",
+          "label": "播放次数",
+          "kind": "int",
+          "hidden": true
+        },
+        {
+          "id": "share_count",
+          "label": "分享次数",
+          "kind": "int",
+          "hidden": true
+        },
+        {
+          "id": "uuid",
+          "label": "资产 UUID",
+          "kind": "text",
+          "hidden": true
+        }
+      ]
+    },
+    {
+      "type": "ios.photos_album",
+      "label": "相册",
+      "title": "{title} ({asset_count} 项)",
+      "category": "fphotos",
+      "fields": [
+        {
+          "id": "title",
+          "label": "相册名",
+          "kind": "text",
+          "key": true
+        },
+        {
+          "id": "album_kind",
+          "label": "相册种类",
+          "kind": "text"
+        },
+        {
+          "id": "asset_count",
+          "label": "资产数",
+          "kind": "int"
+        },
+        {
+          "id": "photo_count",
+          "label": "照片数",
+          "kind": "int"
+        },
+        {
+          "id": "video_count",
+          "label": "视频数",
+          "kind": "int"
+        },
+        {
+          "id": "created",
+          "label": "创建时间（UTC+8）",
+          "kind": "timestamp"
+        },
+        {
+          "id": "deleted",
+          "label": "删除状态",
+          "kind": "text"
+        },
+        {
+          "id": "owner",
+          "label": "云端所有者",
+          "kind": "text"
+        },
+        {
+          "id": "imported_by",
+          "label": "导入方",
+          "kind": "text"
+        },
+        {
+          "id": "uuid",
+          "label": "UUID",
+          "kind": "text"
+        },
+        {
+          "id": "kind_code",
+          "label": "相册类型码",
+          "kind": "int"
+        }
+      ]
+    },
+    {
+      "type": "ios.photos_album_asset",
+      "label": "相册成员",
+      "category": "fphotos",
+      "fields": [
+        {
+          "id": "album",
+          "label": "相册名",
+          "kind": "text",
+          "key": true
+        },
+        {
+          "id": "filename",
+          "label": "文件名",
+          "kind": "text",
+          "key": true
+        }
+      ]
+    },
+    {
+      "type": "ios.photos_moment",
+      "label": "回忆时刻",
+      "category": "fphotos",
+      "fields": [
+        {
+          "id": "title",
+          "label": "标题",
+          "kind": "text",
+          "key": true
+        },
+        {
+          "id": "subtitle",
+          "label": "副标题",
+          "kind": "text"
+        },
+        {
+          "id": "start",
+          "label": "开始（UTC+8）",
+          "kind": "timestamp"
+        },
+        {
+          "id": "end",
+          "label": "结束（UTC+8）",
+          "kind": "timestamp"
+        },
+        {
+          "id": "asset_count",
+          "label": "资产数",
+          "kind": "int"
+        },
+        {
+          "id": "photo_count",
+          "label": "照片数",
+          "kind": "int"
+        },
+        {
+          "id": "places",
+          "label": "地点",
+          "kind": "text"
+        },
+        {
+          "id": "deleted",
+          "label": "删除状态",
+          "kind": "text"
+        }
+      ]
+    },
+    {
+      "type": "ios.photos_person",
+      "label": "人物聚类",
+      "title": "{name} ({face_count} 张人脸)",
+      "category": "fphotos",
+      "fields": [
+        {
+          "id": "name",
+          "label": "人物",
+          "kind": "text",
+          "key": true
+        },
+        {
+          "id": "face_count",
+          "label": "人脸数",
+          "kind": "int"
+        },
+        {
+          "id": "status",
+          "label": "状态",
+          "kind": "text"
+        },
+        {
+          "id": "identifier",
+          "label": "人物标识",
+          "kind": "text"
+        }
+      ]
+    },
+    {
+      "type": "ios.photos_scene",
+      "label": "相册场景与实况语音识别",
+      "title": "{scene_name} ({channel_name})",
+      "category": "fphotos",
+      "fields": [
+        {
+          "id": "scene_name",
+          "label": "识别标签",
+          "kind": "text",
+          "key": true
+        },
+        {
+          "id": "channel_name",
+          "label": "分类通道",
+          "kind": "text"
+        },
+        {
+          "id": "asset_count",
+          "label": "命中照片数",
+          "kind": "int"
+        },
+        {
+          "id": "max_confidence",
+          "label": "最高置信度",
+          "kind": "float"
+        },
+        {
+          "id": "sample_files",
+          "label": "命中文件名",
+          "kind": "text"
+        },
+        {
+          "id": "start_sec",
+          "label": "起始时间(秒)",
+          "kind": "float"
+        },
+        {
+          "id": "duration",
+          "label": "持续时长(秒)",
+          "kind": "float"
+        },
+        {
+          "id": "asset_path",
+          "label": "检材媒体路径",
+          "kind": "path"
+        },
+        {
+          "id": "scene_id",
+          "label": "场景编号(SceneID)",
+          "kind": "int",
+          "hidden": true
+        },
+        {
+          "id": "channel",
+          "label": "通道编号",
+          "kind": "int",
+          "hidden": true
+        },
+        {
+          "id": "bbox",
+          "label": "检测框(归一化)",
+          "kind": "text",
+          "hidden": true
+        }
+      ]
+    },
+    {
+      "type": "ios.photos_cloud",
+      "label": "iCloud 云端资产",
+      "category": "fphotos",
+      "fields": [
+        {
+          "id": "guid",
+          "label": "云 GUID",
+          "kind": "text",
+          "key": true
+        },
+        {
+          "id": "state",
+          "label": "本地状态",
+          "kind": "text"
+        },
+        {
+          "id": "imported_by",
+          "label": "导入方",
+          "kind": "text"
+        },
+        {
+          "id": "created",
+          "label": "创建时间（UTC+8）",
+          "kind": "timestamp"
+        },
+        {
+          "id": "import_date",
+          "label": "导入时间（UTC+8）",
+          "kind": "timestamp"
+        },
+        {
+          "id": "placeholder",
+          "label": "占位状态",
+          "kind": "int"
+        },
+        {
+          "id": "codec",
+          "label": "编码格式",
+          "kind": "text"
+        }
+      ]
+    },
+    {
+      "type": "ios.photos_analysis",
+      "label": "资产分析状态",
+      "category": "fphotos",
+      "fields": [
+        {
+          "id": "filename",
+          "label": "文件名",
+          "kind": "text",
+          "key": true
+        },
+        {
+          "id": "scene_count",
+          "label": "场景标签数",
+          "kind": "int"
+        },
+        {
+          "id": "analysis_state",
+          "label": "分析状态",
+          "kind": "int"
+        },
+        {
+          "id": "worker_type",
+          "label": "分析任务类型",
+          "kind": "int"
+        },
+        {
+          "id": "worker_flags",
+          "label": "分析任务标记",
+          "kind": "int"
+        }
+      ]
+    },
+    {
+      "type": "ios.photo",
+      "label": "相册资产",
+      "category": "fmedia",
+      "fields": [
+        {
+          "id": "filename",
+          "label": "文件名",
+          "kind": "text",
+          "key": true
+        },
+        {
+          "id": "media_type",
+          "label": "媒体类型",
+          "kind": "text"
+        },
+        {
+          "id": "duration",
+          "label": "时长（秒）",
+          "kind": "duration"
+        },
+        {
+          "id": "created",
+          "label": "拍摄时间（UTC+8）",
+          "kind": "timestamp"
+        },
+        {
+          "id": "added",
+          "label": "加入相册（UTC+8）",
+          "kind": "timestamp"
+        },
+        {
+          "id": "original_filename",
+          "label": "原始文件名",
+          "kind": "text"
+        },
+        {
+          "id": "source_app",
+          "label": "导入/拍摄应用",
+          "kind": "text"
+        },
+        {
+          "id": "cloud",
+          "label": "iCloud 存储",
+          "kind": "text"
+        },
+        {
+          "id": "gps_lat",
+          "label": "纬度",
+          "kind": "float"
+        },
+        {
+          "id": "gps_lng",
+          "label": "经度",
+          "kind": "float"
+        },
+        {
+          "id": "orientation",
+          "label": "方向",
+          "kind": "int"
+        },
+        {
+          "id": "hidden",
+          "label": "隐藏",
+          "kind": "text"
+        },
+        {
+          "id": "kind_subtype",
+          "label": "子类型",
+          "kind": "int"
+        },
+        {
+          "id": "share_count",
+          "label": "分享次数",
+          "kind": "int"
+        },
+        {
+          "id": "last_shared",
+          "label": "最后分享（UTC+8）",
+          "kind": "timestamp"
+        },
+        {
+          "id": "directory",
+          "label": "存储目录",
+          "kind": "text"
+        }
+      ]
+    },
+    {
+      "type": "ios.note",
+      "label": "笔记",
+      "category": "fmedia",
+      "fields": [
+        {
+          "id": "title",
+          "label": "标题",
+          "kind": "text",
+          "key": true
+        },
+        {
+          "id": "created",
+          "label": "创建时间（UTC+8）",
+          "kind": "timestamp"
+        },
+        {
+          "id": "edited",
+          "label": "修改时间（UTC+8）",
+          "kind": "timestamp"
+        }
+      ]
+    },
+    {
+      "type": "ios.log_event",
+      "label": "系统日志（Unified Log）",
+      "category": "glog",
+      "fields": [
+        {
+          "id": "time",
+          "label": "时间（UTC）",
+          "kind": "timestamp"
+        },
+        {
+          "id": "process",
+          "label": "进程",
+          "kind": "text",
+          "key": true
+        },
+        {
+          "id": "pid",
+          "label": "PID",
+          "kind": "int"
+        },
+        {
+          "id": "thread",
+          "label": "线程",
+          "kind": "int"
+        },
+        {
+          "id": "subsystem",
+          "label": "子系统",
+          "kind": "text"
+        },
+        {
+          "id": "category",
+          "label": "分类",
+          "kind": "text"
+        },
+        {
+          "id": "event_type",
+          "label": "事件类型",
+          "kind": "text"
+        },
+        {
+          "id": "log_type",
+          "label": "日志级别",
+          "kind": "text"
+        },
+        {
+          "id": "message",
+          "label": "消息",
+          "kind": "text"
+        }
+      ]
+    },
+    {
+      "type": "ios.push",
+      "label": "通知记录",
+      "category": "ccomm",
+      "fields": [
+        {
+          "id": "time",
+          "label": "时间（UTC+8）",
+          "kind": "timestamp"
+        },
+        {
+          "id": "app",
+          "label": "应用",
+          "kind": "text",
+          "key": true
+        },
+        {
+          "id": "title",
+          "label": "标题",
+          "kind": "text"
+        },
+        {
+          "id": "subtitle",
+          "label": "副标题",
+          "kind": "text"
+        },
+        {
+          "id": "body",
+          "label": "内容",
+          "kind": "text"
+        },
+        {
+          "id": "bundle",
+          "label": "BundleID",
+          "kind": "text"
+        }
+      ]
+    },
+    {
+      "type": "ios.keychain_item",
+      "label": "钥匙串条目",
+      "category": "dconnect",
+      "fields": [
+        {
+          "id": "account",
+          "label": "账户",
+          "kind": "text",
+          "key": true
+        },
+        {
+          "id": "service",
+          "label": "服务",
+          "kind": "text"
+        },
+        {
+          "id": "item_class",
+          "label": "条目类别",
+          "kind": "text"
+        },
+        {
+          "id": "created",
+          "label": "创建时间（UTC+8）",
+          "kind": "timestamp"
+        },
+        {
+          "id": "modified",
+          "label": "修改时间（UTC+8）",
+          "kind": "timestamp"
+        },
+        {
+          "id": "data_len",
+          "label": "数据长度",
+          "kind": "int"
+        },
+        {
+          "id": "secret",
+          "label": "明文数据",
+          "kind": "text"
+        },
+        {
+          "id": "note",
+          "label": "说明",
+          "kind": "text"
+        }
+      ]
+    },
+    {
+      "type": "ios.web_history",
+      "label": "浏览器历史",
+      "category": "bappinfo",
+      "fields": [
+        {
+          "id": "time",
+          "label": "访问时间（UTC+8）",
+          "kind": "timestamp"
+        },
+        {
+          "id": "url",
+          "label": "网址",
+          "kind": "text",
+          "key": true
+        },
+        {
+          "id": "title",
+          "label": "标题",
+          "kind": "text"
+        },
+        {
+          "id": "visit_count",
+          "label": "访问次数",
+          "kind": "int"
+        },
+        {
+          "id": "browser",
+          "label": "浏览器",
+          "kind": "text"
+        }
+      ]
+    },
+    {
+      "type": "ios.web_bookmark",
+      "label": "浏览器书签",
+      "category": "bappinfo",
+      "fields": [
+        {
+          "id": "browser",
+          "label": "浏览器",
+          "kind": "text"
+        },
+        {
+          "id": "title",
+          "label": "标题",
+          "kind": "text"
+        },
+        {
+          "id": "url",
+          "label": "网址",
+          "kind": "text",
+          "key": true
+        },
+        {
+          "id": "folder",
+          "label": "所属文件夹",
+          "kind": "text"
+        },
+        {
+          "id": "added",
+          "label": "添加时间（UTC+8）",
+          "kind": "timestamp"
+        }
+      ]
+    },
+    {
+      "type": "ios.web_download",
+      "label": "浏览器下载",
+      "category": "bappinfo",
+      "fields": [
+        {
+          "id": "browser",
+          "label": "浏览器",
+          "kind": "text"
+        },
+        {
+          "id": "url",
+          "label": "来源网址",
+          "kind": "text",
+          "key": true
+        },
+        {
+          "id": "file",
+          "label": "文件名",
+          "kind": "text"
+        },
+        {
+          "id": "size",
+          "label": "大小",
+          "kind": "size"
+        },
+        {
+          "id": "time",
+          "label": "下载时间（UTC+8）",
+          "kind": "timestamp"
+        }
+      ]
+    },
+    {
+      "type": "ios.app_msg",
+      "label": "应用消息",
+      "category": "ccomm",
+      "fields": [
+        {
+          "id": "app",
+          "label": "应用",
+          "kind": "text"
+        },
+        {
+          "id": "chat",
+          "label": "会话/群",
+          "kind": "text"
+        },
+        {
+          "id": "sender",
+          "label": "发送者",
+          "kind": "text"
+        },
+        {
+          "id": "content",
+          "label": "内容",
+          "kind": "text"
+        },
+        {
+          "id": "time",
+          "label": "时间（UTC+8）",
+          "kind": "timestamp"
+        },
+        {
+          "id": "direction",
+          "label": "方向",
+          "kind": "text"
+        },
+        {
+          "id": "msg_type",
+          "label": "消息类型",
+          "kind": "text"
+        },
+        {
+          "id": "fmedia",
+          "label": "媒体/附件",
+          "kind": "text"
+        }
+      ]
+    },
+    {
+      "type": "ios.app_chat",
+      "label": "应用会话/群组",
+      "category": "ccomm",
+      "fields": [
+        {
+          "id": "app",
+          "label": "应用",
+          "kind": "text"
+        },
+        {
+          "id": "chat_id",
+          "label": "会话ID",
+          "kind": "text",
+          "key": true
+        },
+        {
+          "id": "name",
+          "label": "名称",
+          "kind": "text"
+        },
+        {
+          "id": "chat_type",
+          "label": "类型",
+          "kind": "text"
+        },
+        {
+          "id": "member_count",
+          "label": "成员数",
+          "kind": "int"
+        },
+        {
+          "id": "creator",
+          "label": "创建者",
+          "kind": "text"
+        },
+        {
+          "id": "created",
+          "label": "创建时间（UTC+8）",
+          "kind": "timestamp"
+        },
+        {
+          "id": "archived",
+          "label": "已封存",
+          "kind": "text"
+        },
+        {
+          "id": "extra",
+          "label": "其他",
+          "kind": "text"
+        }
+      ]
+    },
+    {
+      "type": "ios.photo_album",
+      "label": "相簿",
+      "category": "fmedia",
+      "fields": [
+        {
+          "id": "name",
+          "label": "相簿名称",
+          "kind": "text",
+          "key": true
+        },
+        {
+          "id": "kind",
+          "label": "类型",
+          "kind": "text"
+        },
+        {
+          "id": "asset_count",
+          "label": "资产数",
+          "kind": "int"
+        },
+        {
+          "id": "note",
+          "label": "说明",
+          "kind": "text"
+        }
+      ]
+    },
+    {
+      "type": "ios.app_config",
+      "label": "应用配置键值",
+      "category": "bappinfo",
+      "fields": [
+        {
+          "id": "app",
+          "label": "应用/组件",
+          "kind": "text",
+          "key": true
+        },
+        {
+          "id": "key",
+          "label": "键",
+          "kind": "text"
+        },
+        {
+          "id": "value",
+          "label": "值",
+          "kind": "text"
+        },
+        {
+          "id": "source",
+          "label": "来源文件",
+          "kind": "text"
+        }
+      ]
+    },
+    {
+      "type": "ios.icloud_photo",
+      "label": "iCloud 照片（服务/同步/云库）",
+      "category": "jicloud",
+      "fields": [
+        {
+          "id": "service",
+          "label": "服务",
+          "kind": "text",
+          "key": true
+        },
+        {
+          "id": "key",
+          "label": "键",
+          "kind": "text"
+        },
+        {
+          "id": "value",
+          "label": "值",
+          "kind": "text"
+        },
+        {
+          "id": "time",
+          "label": "时间（UTC+8）",
+          "kind": "timestamp"
+        },
+        {
+          "id": "source",
+          "label": "来源文件",
+          "kind": "text"
+        }
+      ]
+    },
+    {
+      "type": "ios.icloud_findmy",
+      "label": "iCloud 查找（Find My）",
+      "category": "jicloud",
+      "fields": [
+        {
+          "id": "service",
+          "label": "服务",
+          "kind": "text",
+          "key": true
+        },
+        {
+          "id": "key",
+          "label": "键",
+          "kind": "text"
+        },
+        {
+          "id": "value",
+          "label": "值",
+          "kind": "text"
+        },
+        {
+          "id": "time",
+          "label": "时间（UTC+8）",
+          "kind": "timestamp"
+        },
+        {
+          "id": "source",
+          "label": "来源文件",
+          "kind": "text"
+        }
+      ]
+    },
+    {
+      "type": "ios.icloud_drive",
+      "label": "iCloud Drive（云盘）",
+      "category": "jicloud",
+      "fields": [
+        {
+          "id": "service",
+          "label": "服务",
+          "kind": "text",
+          "key": true
+        },
+        {
+          "id": "key",
+          "label": "键",
+          "kind": "text"
+        },
+        {
+          "id": "value",
+          "label": "值",
+          "kind": "text"
+        },
+        {
+          "id": "time",
+          "label": "时间（UTC+8）",
+          "kind": "timestamp"
+        },
+        {
+          "id": "source",
+          "label": "来源文件",
+          "kind": "text"
+        }
+      ]
+    },
+    {
+      "type": "ios.airdrop_transfer",
+      "label": "AirDrop 传输记录",
+      "title": "{direction} · {file}",
+      "category": "kairdrop",
+      "fields": [
+        {
+          "id": "direction",
+          "label": "方向",
+          "kind": "text"
+        },
+        {
+          "id": "file",
+          "label": "文件名",
+          "kind": "text",
+          "key": true
+        },
+        {
+          "id": "time",
+          "label": "时间（UTC+8）",
+          "kind": "timestamp",
+          "timeline": "airdrop_transfer"
+        },
+        {
+          "id": "peer",
+          "label": "对端装置",
+          "kind": "text"
+        },
+        {
+          "id": "mode",
+          "label": "传输模式",
+          "kind": "text"
+        },
+        {
+          "id": "detail",
+          "label": "说明",
+          "kind": "text"
+        },
+        {
+          "id": "media_path",
+          "label": "检材文件路径",
+          "kind": "path"
+        }
+      ]
+    },
+    {
+      "type": "ios.airdrop_identity",
+      "label": "AirDrop 本机标识",
+      "category": "kairdrop",
+      "properties": {
+        "value": "value",
+        "label": "key",
+        "secondary": "note"
+      },
+      "fields": [
+        {
+          "id": "key",
+          "label": "项",
+          "kind": "text",
+          "key": true
+        },
+        {
+          "id": "value",
+          "label": "值",
+          "kind": "text"
+        },
+        {
+          "id": "note",
+          "label": "说明",
+          "kind": "text"
+        }
+      ]
+    },
+    {
+      "type": "ios.coreduet_interaction",
+      "label": "跨应用交互残留记录",
+      "title": "[{direction}] {app_name} · {sender}",
+      "category": "kairdrop",
+      "fields": [
+        {
+          "id": "start_time",
+          "label": "交互开始时间",
+          "kind": "timestamp",
+          "timeline": "coreduet_interaction"
+        },
+        {
+          "id": "end_time",
+          "label": "交互结束时间",
+          "kind": "timestamp",
+          "hidden": true
+        },
+        {
+          "id": "app_name",
+          "label": "应用名称",
+          "kind": "text"
+        },
+        {
+          "id": "bundle_id",
+          "label": "应用 BundleID",
+          "kind": "text",
+          "hidden": true
+        },
+        {
+          "id": "direction",
+          "label": "交互方向",
+          "kind": "text"
+        },
+        {
+          "id": "mechanism",
+          "label": "交互机制",
+          "kind": "text"
+        },
+        {
+          "id": "sender",
+          "label": "发送方账号/昵称",
+          "kind": "text"
+        },
+        {
+          "id": "recipients",
+          "label": "接收方账号/昵称",
+          "kind": "text"
+        },
+        {
+          "id": "group_name",
+          "label": "群组/会话名称",
+          "kind": "text"
+        },
+        {
+          "id": "domain_id",
+          "label": "会话域标识(Domain/ChatID)",
+          "kind": "text"
+        },
+        {
+          "id": "attachments",
+          "label": "关联附件摘要",
+          "kind": "text"
+        },
+        {
+          "id": "content_url",
+          "label": "关联链接",
+          "kind": "text"
+        },
+        {
+          "id": "account",
+          "label": "本机账户",
+          "kind": "text",
+          "hidden": true
+        },
+        {
+          "id": "target_bundle_id",
+          "label": "目标扩展 BundleID",
+          "kind": "text",
+          "hidden": true
+        },
+        {
+          "id": "pk",
+          "label": "记录主键(Z_PK)",
+          "kind": "int",
+          "key": true,
+          "hidden": true
+        }
+      ]
+    },
+    {
+      "type": "ios.cloud_backup",
+      "label": "iCloud 备份",
+      "category": "jicloud",
+      "fields": [
+        {
+          "id": "item",
+          "label": "事项",
+          "kind": "text",
+          "key": true
+        },
+        {
+          "id": "time",
+          "label": "时间（UTC+8）",
+          "kind": "timestamp"
+        },
+        {
+          "id": "state",
+          "label": "状态",
+          "kind": "text"
+        },
+        {
+          "id": "detail",
+          "label": "说明",
+          "kind": "text"
+        }
+      ]
+    },
+    {
+      "type": "ios.wa_chat",
+      "label": "WhatsApp 会话/群组",
+      "category": "iwhatsapp",
+      "fields": [
+        {
+          "id": "chat_id",
+          "label": "会话ID（JID）",
+          "kind": "text",
+          "key": true
+        },
+        {
+          "id": "name",
+          "label": "名称",
+          "kind": "text"
+        },
+        {
+          "id": "chat_type",
+          "label": "类型",
+          "kind": "text"
+        },
+        {
+          "id": "member_count",
+          "label": "成员数",
+          "kind": "int"
+        },
+        {
+          "id": "admins",
+          "label": "管理员",
+          "kind": "text"
+        },
+        {
+          "id": "creator",
+          "label": "创建者",
+          "kind": "text"
+        },
+        {
+          "id": "created",
+          "label": "创建时间（UTC+8）",
+          "kind": "timestamp"
+        },
+        {
+          "id": "archived",
+          "label": "已封存",
+          "kind": "text"
+        },
+        {
+          "id": "extra",
+          "label": "其他",
+          "kind": "text"
+        }
+      ]
+    },
+    {
+      "type": "ios.wa_msg",
+      "label": "WhatsApp 消息",
+      "title": "{sender}：{content}",
+      "category": "iwhatsapp",
+      "chat": {
+        "threadId": "chat_id",
+        "threadTitle": "chat_name",
+        "sender": "sender",
+        "direction": "direction",
+        "outgoingValues": [
+          "发出",
+          "Outgoing"
+        ],
+        "content": "content",
+        "time": "time",
+        "msgType": "msg_type",
+        "media": "media_path",
+        "status": "read_summary",
+        "receipts": "receipts",
+        "poll": "poll",
+        "reactions": "reactions",
+        "replyTo": "reply_to"
+      },
+      "fields": [
+        {
+          "id": "chat_id",
+          "label": "会话ID（JID）",
+          "kind": "text",
+          "key": true
+        },
+        {
+          "id": "chat_name",
+          "label": "会话名称",
+          "kind": "text"
+        },
+        {
+          "id": "sender",
+          "label": "发送者",
+          "kind": "text"
+        },
+        {
+          "id": "direction",
+          "label": "方向",
+          "kind": "text"
+        },
+        {
+          "id": "msg_type",
+          "label": "消息类型",
+          "kind": "text"
+        },
+        {
+          "id": "content",
+          "label": "内容",
+          "kind": "text"
+        },
+        {
+          "id": "fmedia",
+          "label": "媒体/附件",
+          "kind": "text"
+        },
+        {
+          "id": "media_path",
+          "label": "检材媒体路径",
+          "kind": "path",
+          "hidden": true
+        },
+        {
+          "id": "time",
+          "label": "时间（UTC+8）",
+          "kind": "timestamp",
+          "timeline": "wa_msg"
+        },
+        {
+          "id": "read_summary",
+          "label": "已读/未读状态",
+          "kind": "text"
+        },
+        {
+          "id": "receipts",
+          "label": "回执明细",
+          "kind": "json",
+          "hidden": true
+        },
+        {
+          "id": "poll",
+          "label": "投票结果",
+          "kind": "json",
+          "hidden": true
+        },
+        {
+          "id": "reactions",
+          "label": "消息回应",
+          "kind": "json",
+          "hidden": true
+        },
+        {
+          "id": "reply_to",
+          "label": "引用回复",
+          "kind": "json",
+          "hidden": true
+        }
+      ]
+    },
+    {
+      "type": "ios.wa_poll",
+      "label": "WhatsApp 投票",
+      "title": "{question}（{total_votes} 票）",
+      "category": "iwhatsapp",
+      "fields": [
+        {
+          "id": "chat_id",
+          "label": "会话ID（JID）",
+          "kind": "text"
+        },
+        {
+          "id": "chat_name",
+          "label": "会话名称",
+          "kind": "text"
+        },
+        {
+          "id": "creator",
+          "label": "发起人",
+          "kind": "text"
+        },
+        {
+          "id": "time",
+          "label": "发起时间（UTC+8）",
+          "kind": "timestamp",
+          "timeline": "wa_poll"
+        },
+        {
+          "id": "question",
+          "label": "投票问题",
+          "kind": "text",
+          "key": true
+        },
+        {
+          "id": "allow_multiple",
+          "label": "单/多选",
+          "kind": "text"
+        },
+        {
+          "id": "total_voters",
+          "label": "参与人数",
+          "kind": "int"
+        },
+        {
+          "id": "total_votes",
+          "label": "总票数",
+          "kind": "int"
+        },
+        {
+          "id": "results_summary",
+          "label": "得票汇总",
+          "kind": "text"
+        },
+        {
+          "id": "poll",
+          "label": "投票明细",
+          "kind": "json",
+          "hidden": true
+        }
+      ]
+    },
+    {
+      "type": "ios.wa_geo",
+      "label": "WhatsApp 位置",
+      "category": "iwhatsapp",
+      "fields": [
+        {
+          "id": "chat_name",
+          "label": "会话名称",
+          "kind": "text"
+        },
+        {
+          "id": "name",
+          "label": "地点名称",
+          "kind": "text"
+        },
+        {
+          "id": "lat",
+          "label": "纬度",
+          "kind": "float"
+        },
+        {
+          "id": "lng",
+          "label": "经度",
+          "kind": "float"
+        },
+        {
+          "id": "time",
+          "label": "时间（UTC+8）",
+          "kind": "timestamp"
+        }
+      ]
+    },
+    {
+      "type": "ios.wa_call",
+      "label": "WhatsApp 通话",
+      "category": "iwhatsapp",
+      "fields": [
+        {
+          "id": "peer",
+          "label": "对方 JID/号码",
+          "kind": "text",
+          "key": true
+        },
+        {
+          "id": "direction",
+          "label": "类型",
+          "kind": "text"
+        },
+        {
+          "id": "duration",
+          "label": "时长（秒）",
+          "kind": "duration"
+        },
+        {
+          "id": "video",
+          "label": "视频通话",
+          "kind": "text"
+        },
+        {
+          "id": "time",
+          "label": "时间（UTC+8）",
+          "kind": "timestamp"
+        }
+      ]
+    },
+    {
+      "type": "ios.app_user",
+      "label": "应用账户",
+      "category": "bappinfo",
+      "fields": [
+        {
+          "id": "app",
+          "label": "应用",
+          "kind": "text"
+        },
+        {
+          "id": "user_id",
+          "label": "用户ID",
+          "kind": "text",
+          "key": true
+        },
+        {
+          "id": "nickname",
+          "label": "昵称",
+          "kind": "text"
+        },
+        {
+          "id": "phone",
+          "label": "手机号",
+          "kind": "text"
+        },
+        {
+          "id": "email",
+          "label": "邮箱",
+          "kind": "text"
+        },
+        {
+          "id": "gender",
+          "label": "性别",
+          "kind": "text"
+        },
+        {
+          "id": "extra",
+          "label": "其他",
+          "kind": "text"
+        }
+      ]
+    },
+    {
+      "type": "ios.app_search",
+      "label": "应用搜索历史",
+      "category": "bappinfo",
+      "fields": [
+        {
+          "id": "app",
+          "label": "应用",
+          "kind": "text"
+        },
+        {
+          "id": "keyword",
+          "label": "关键词",
+          "kind": "text",
+          "key": true
+        },
+        {
+          "id": "time",
+          "label": "时间（UTC+8）",
+          "kind": "timestamp"
+        }
+      ]
+    },
+    {
+      "type": "ios.app_geo",
+      "label": "应用位置",
+      "category": "bappinfo",
+      "fields": [
+        {
+          "id": "app",
+          "label": "应用",
+          "kind": "text"
+        },
+        {
+          "id": "name",
+          "label": "地点名称",
+          "kind": "text"
+        },
+        {
+          "id": "lng",
+          "label": "经度",
+          "kind": "float"
+        },
+        {
+          "id": "lat",
+          "label": "纬度",
+          "kind": "float"
+        },
+        {
+          "id": "time",
+          "label": "时间（UTC+8）",
+          "kind": "timestamp"
+        }
+      ]
+    },
+    {
+      "type": "ios.app_bill",
+      "label": "应用订单",
+      "category": "bappinfo",
+      "fields": [
+        {
+          "id": "app",
+          "label": "应用",
+          "kind": "text"
+        },
+        {
+          "id": "order_id",
+          "label": "订单号",
+          "kind": "text",
+          "key": true
+        },
+        {
+          "id": "title",
+          "label": "商品/描述",
+          "kind": "text"
+        },
+        {
+          "id": "amount",
+          "label": "金额",
+          "kind": "float"
+        },
+        {
+          "id": "time",
+          "label": "时间（UTC+8）",
+          "kind": "timestamp"
+        }
+      ]
+    },
+    {
+      "type": "ios.app_media",
+      "label": "应用媒体",
+      "category": "fmedia",
+      "fields": [
+        {
+          "id": "app",
+          "label": "应用",
+          "kind": "text"
+        },
+        {
+          "id": "name",
+          "label": "名称",
+          "kind": "text",
+          "key": true
+        },
+        {
+          "id": "path",
+          "label": "路径",
+          "kind": "path"
+        },
+        {
+          "id": "size",
+          "label": "大小",
+          "kind": "size"
+        },
+        {
+          "id": "time",
+          "label": "时间（UTC+8）",
+          "kind": "timestamp"
+        }
+      ]
+    },
+    {
+      "type": "ios.media_exif",
+      "label": "媒体文件元数据",
+      "category": "fmedia",
+      "fields": [
+        {
+          "id": "path",
+          "label": "路径",
+          "kind": "path",
+          "key": true
+        },
+        {
+          "id": "name",
+          "label": "文件名",
+          "kind": "text"
+        },
+        {
+          "id": "app",
+          "label": "来源应用/目录",
+          "kind": "text"
+        },
+        {
+          "id": "size",
+          "label": "大小",
+          "kind": "size"
+        },
+        {
+          "id": "sha256",
+          "label": "SHA256",
+          "kind": "text"
+        },
+        {
+          "id": "make",
+          "label": "相机厂商",
+          "kind": "text"
+        },
+        {
+          "id": "model",
+          "label": "相机型号",
+          "kind": "text"
+        },
+        {
+          "id": "software",
+          "label": "软件",
+          "kind": "text"
+        },
+        {
+          "id": "taken",
+          "label": "拍摄时间（EXIF）",
+          "kind": "text"
+        },
+        {
+          "id": "orientation",
+          "label": "方向",
+          "kind": "int"
+        },
+        {
+          "id": "gps_lat",
+          "label": "纬度",
+          "kind": "float"
+        },
+        {
+          "id": "gps_lng",
+          "label": "经度",
+          "kind": "float"
+        }
+      ]
+    },
+    {
+      "type": "ios.sim",
+      "label": "SIM 卡",
+      "category": "dconnect",
+      "fields": [
+        {
+          "id": "slot",
+          "label": "卡槽/标识",
+          "kind": "text",
+          "key": true
+        },
+        {
+          "id": "iccid",
+          "label": "ICCID",
+          "kind": "text"
+        },
+        {
+          "id": "imei",
+          "label": "IMEI",
+          "kind": "text"
+        },
+        {
+          "id": "phone",
+          "label": "号码",
+          "kind": "text"
+        },
+        {
+          "id": "label",
+          "label": "标签",
+          "kind": "text"
+        },
+        {
+          "id": "extra",
+          "label": "其他",
+          "kind": "text"
+        }
+      ]
+    },
+    {
+      "type": "ios.app_artifact",
+      "label": "应用数据片段",
+      "category": "bappinfo",
+      "fields": [
+        {
+          "id": "app",
+          "label": "应用/文件",
+          "kind": "text"
+        },
+        {
+          "id": "kind",
+          "label": "类型",
+          "kind": "text"
+        },
+        {
+          "id": "value",
+          "label": "值",
+          "kind": "text",
+          "key": true
+        },
+        {
+          "id": "path",
+          "label": "来源路径",
+          "kind": "path"
+        },
+        {
+          "id": "note",
+          "label": "说明",
+          "kind": "text"
+        }
+      ]
+    },
+    {
+      "type": "ios.overview",
+      "label": "取证结论总览",
+      "category": "abasic",
+      "fields": [
+        {
+          "id": "item",
+          "label": "事项",
+          "kind": "text",
+          "key": true
+        },
+        {
+          "id": "finding",
+          "label": "结论",
+          "kind": "text"
+        },
+        {
+          "id": "meaning",
+          "label": "依据与限制",
+          "kind": "text"
+        }
+      ]
+    },
+    {
+      "type": "powerlog.overview",
+      "label": "Powerlog取证结论总览",
+      "category": "abasic",
+      "fields": [
+        {
+          "id": "item",
+          "label": "事项",
+          "kind": "text",
+          "key": true
+        },
+        {
+          "id": "finding",
+          "label": "结论",
+          "kind": "text"
+        },
+        {
+          "id": "meaning",
+          "label": "依据与限制",
+          "kind": "text"
+        }
+      ]
+    }
+  ],
+  "schema_hash": "fnv1a64:b8d475c0d4abe093"
+}

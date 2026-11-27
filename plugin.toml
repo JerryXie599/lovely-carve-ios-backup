@@ -1,0 +1,360 @@
+id = "org.lovelycarve.iosbackup"
+name = "iOS备份与Sysdiagnose取证"
+version = "4.2.1"
+protocol = 2
+library = "ios_backup"
+memory = "1GiB"
+
+[[analyzer]]
+id = "ios_backup"
+name = "iOS备份综合取证分析"
+scope = "evidence"
+trigger = "manual"
+category = "abasic"
+provides = ["ios_analyzed"]
+inputs = [
+    "Manifest.plist",
+    "Manifest.db",
+    "Info.plist",
+    "Status.plist",
+    "**/Manifest.plist",
+    "**/Manifest.db",
+    "**/bluetooth_status.txt",
+    "**/BDC_Once*.csv",
+    "**/BatteryHealth.log",
+    "**/mobile_installation.log*",
+    "**/itunesstored.log",
+    "**/com.apple.MobileBackup.plist",
+    "**/com.apple.powerd.bdc.plist",
+    "**/SystemVersion.plist",
+    "**/Info.plist",
+    "**/Status.plist",
+    "**/iDevice_info.txt",
+    "**/com.apple.commcenter.plist",
+    "**/com.apple.MobileInternetSharing.plist",
+    "**/com.apple.MobileHotspot.plist",
+    "**/com.apple.wifi.known-networks.plist",
+    "**/KeyChain.json",
+    "**/keychain-backup.plist",
+    "**/Bookmarks.db",
+    "**/Downloads.plist",
+    "**/*.PLSQL",
+    "**/*.plsql",
+    "**/*.PLSQL-wal",
+    "**/*.PLSQL-shm",
+    "**/sms.db",
+    "**/sms.db-wal",
+    "**/AddressBook.sqlitedb",
+    "**/AddressBook.sqlitedb.db",
+    "**/CallHistory.storedata",
+    "**/CallHistory.storedata.db",
+    "**/call_history.db",
+    "**/com.apple.wifi.plist",
+    "**/com.apple.wifi-private-mac-networks.plist",
+    "**/com.apple.MobileBluetooth.ledevices.paired.db",
+    "**/com.apple.MobileBluetooth.ledevices.other.db",
+    "**/com.apple.MobileBluetooth.devices.plist",
+    "**/Accounts3.sqlite",
+    "**/Photos.sqlite",
+    "**/NoteStore.sqlite",
+    "**/notes.sqlite",
+    "**/notes.sqlite-wal",
+    "**/notes.sqlite-shm",
+    "**/.com.apple.mobile_container_manager.metadata.plist",
+    "**/*.tracev3",
+    "**/*.timesync",
+    "**/DeliveredNotifications.plist",
+    "**/ComparableKeychainBackup.plist",
+    "**/History.db",
+    "**/DataUsage.sqlite",
+    "**/DataUsage.sqlite-wal",
+    "**/DataUsage.sqlite-shm",
+]
+
+[[analyzer.option]]
+id = "backup_password"
+type = "text"
+label = "备份密码"
+default = ""
+
+[[analyzer.option]]
+id = "auto_crack_password"
+type = "flag"
+label = "不知道密码自动爆破 Manifest.plist 备份密码（4/6位纯数字）"
+default = false
+
+[[analyzer]]
+id = "powerlog_files"
+name = "Powerlog数据库深度归纳"
+scope = "files"
+extensions = ["plsql", "sqlite", "db", "plsql-wal", "plsql-shm", "sqlite-wal", "sqlite-shm", "db-wal", "db-shm"]
+trigger = "manual"
+category = "hios"
+
+[[analyzer]]
+id = "log_archive"
+name = "系统日志深度分析（tracev3）"
+scope = "evidence"
+trigger = "manual"
+category = "glog"
+inputs = ["**/*.tracev3", "**/*.timesync"]
+
+[[analyzer.option]]
+id = "keyword"
+type = "text"
+label = "关键词过滤（进程/子系统/消息；留空=仅输出 Error/Fault 级）"
+default = ""
+
+[[analyzer.option]]
+id = "limit"
+type = "text"
+label = "最大输出条数（默认 20000）"
+default = "20000"
+
+[[analyzer]]
+id = "ios_comm"
+name = "iOS通讯信息（短信/通话/通讯录/通知）"
+scope = "evidence"
+trigger = "auto"
+requires = ["ios_analyzed"]
+category = "ccomm"
+inputs = [
+    "**/sms.db",
+    "**/AddressBook.sqlitedb",
+    "**/AddressBook.sqlitedb.db",
+    "**/CallHistory.storedata",
+    "**/CallHistory.storedata.db",
+    "**/call_history.db",
+    "**/DeliveredNotifications.plist",
+    "**/history_message.db",
+    "**/Message.sqlite",
+    "**/messages.db",
+    "**/messages-store.sqlite",
+    "**/fmdb.sqlite",
+    "**/zim_global.db",
+    "**/wind.sqlite",
+    "**/wind.sqlite3",
+    "**/atimdb.db",
+    "**/atkitimdb.db",
+    "**/session.db",
+    "**/iktcjchatdata.db",
+    "**/im_message.db",
+    "**/im_groupmessage.db",
+    "**/privatemessage.db",
+    "**/_message_zhihu_im.db",
+    "**/apollo_db.sqlite",
+]
+
+[[analyzer]]
+id = "ios_whatsapp"
+name = "WhatsApp 取证分析（会话/消息/通话/位置）"
+scope = "evidence"
+trigger = "auto"
+requires = ["ios_analyzed"]
+category = "iwhatsapp"
+inputs = [
+    "**/ChatStorage.sqlite",
+    "**/ChatStorage.sqlite-wal",
+    "**/ChatStorage.sqlite-shm",
+    "**/CallHistory.sqlite",
+    "**/CallHistory.sqlite-wal",
+    "**/CallHistory.sqlite-shm",
+    "**/ContactsV2.sqlite",
+    "**/ContactsV2.sqlite-wal",
+    "**/ContactsV2.sqlite-shm",
+    "**/LID.sqlite",
+    "**/LID.sqlite-wal",
+    "**/LID.sqlite-shm",
+    "**/MessagingInfraDatabase.sqlite",
+    "**/MessagingInfraDatabase.sqlite-wal",
+    "**/MessagingInfraDatabase.sqlite-shm",
+    "**/BackedUpStorageDatabase.sqlite",
+    "**/BackedUpStorageDatabase.sqlite-wal",
+    "**/BackedUpStorageDatabase.sqlite-shm",
+    "**/ExtChatDatabase.sqlite",
+    "**/ExtChatDatabase.sqlite-wal",
+    "**/ExtChatDatabase.sqlite-shm",
+]
+
+[[analyzer]]
+id = "ios_icloud"
+name = "iCloud 取证分析（账户/备份/照片库/查找/云盘）"
+scope = "evidence"
+trigger = "auto"
+requires = ["ios_analyzed"]
+category = "jicloud"
+inputs = [
+    "**/com.apple.MobileBackup.plist",
+    "**/com.apple.cloudphotod.plist",
+    "**/com.apple.icloud.*.plist",
+    "**/PhotoData/CPL/*.plist",
+    "**/store.cloudphotodb",
+    "**/store.cloudphotodb-wal",
+    "**/store.cloudphotodb-shm",
+    "**/Application Support/FileProvider/**/Domains.plist",
+]
+
+[[analyzer]]
+id = "ios_airdrop"
+name = "AirDrop 本机标识与配置"
+scope = "evidence"
+trigger = "auto"
+requires = ["ios_analyzed"]
+category = "kairdrop"
+inputs = [
+    "**/com.apple.sharingd.plist",
+]
+
+[[analyzer]]
+id = "ios_coreduet"
+name = "交互记录深度解析（CoreDuet 事件/联系人/传输工件）"
+scope = "evidence"
+trigger = "auto"
+requires = ["ios_analyzed"]
+category = "ginteraction"
+inputs = [
+    "**/interactionC.db",
+    "**/interactionC.db-wal",
+    "**/interactionC.db-shm",
+    # 照片库用于把 AirDrop 分享动作交叉验证到具体资产（ZLASTSHAREDDATE 同秒）
+    "**/Photos.sqlite",
+    "**/Photos.sqlite-wal",
+    "**/Photos.sqlite-shm",
+    "**/DataUsage.sqlite",
+    "**/DataUsage.sqlite-wal",
+    "**/DataUsage.sqlite-shm",
+]
+
+[[analyzer]]
+id = "ios_apps"
+name = "iOS应用信息（清单/安装/时长/浏览器）"
+scope = "evidence"
+trigger = "auto"
+requires = ["ios_analyzed"]
+category = "bappinfo"
+inputs = [
+    "Manifest.plist",
+    "**/Manifest.plist",
+    "**/mobile_installation.log*",
+    "**/itunesstored.log",
+    "**/History.db",
+    "**/local_search.db",
+    "**/globalsearch_search_history.db",
+    "**/Bookmarks.db",
+    "**/Downloads.plist",
+    "**/Library/Preferences/*.plist",
+    "**/*.realm",
+    "**/Photos.sqlite",
+    "**/Photos.sqlite-wal",
+    "**/Photos.sqlite-shm",
+    "**/DataUsage.sqlite",
+    "**/DataUsage.sqlite-wal",
+    "**/DataUsage.sqlite-shm",
+]
+
+[[analyzer]]
+id = "ios_connect"
+name = "iOS设备连接（蓝牙/WiFi/账户/钥匙串）"
+scope = "evidence"
+trigger = "auto"
+requires = ["ios_analyzed"]
+category = "dconnect"
+inputs = [
+    "**/bluetooth_status.txt",
+    "**/com.apple.MobileBluetooth.ledevices.paired.db",
+    "**/com.apple.MobileBluetooth.ledevices.other.db",
+    "**/com.apple.MobileBackup.plist",
+    "**/com.apple.MobileBluetooth.devices.plist",
+    "**/com.apple.wifi.plist",
+    "**/com.apple.wifi-private-mac-networks.plist",
+    "**/com.apple.wifi.known-networks.plist",
+    "**/KeyChain.json",
+    "**/keychain-backup.plist",
+    "**/com.apple.commcenter.plist",
+    "**/iDevice_info.txt",
+    "**/com.apple.MobileInternetSharing.plist",
+    "**/com.apple.MobileHotspot.plist",
+    "**/Accounts3.sqlite",
+    "**/ComparableKeychainBackup.plist",
+    "**/LoginDB.sqlite",
+]
+
+[[analyzer]]
+id = "ios_power"
+name = "iOS电池与屏幕（电池/充电/解锁/亮屏）"
+scope = "evidence"
+trigger = "auto"
+requires = ["ios_analyzed"]
+category = "epower"
+inputs = [
+    "**/BDC_Once*.csv",
+    "**/BatteryHealth.log",
+    "**/com.apple.powerd.bdc.plist",
+    "**/*.PLSQL",
+    "**/*.plsql",
+]
+
+[[analyzer]]
+id = "ios_photos"
+name = "照片库深度解析（Photos 完整分析）"
+scope = "evidence"
+trigger = "auto"
+requires = ["ios_analyzed"]
+category = "fphotos"
+inputs = [
+    "**/Photos.sqlite",
+    "**/Photos.sqlite-wal",
+    "**/Photos.sqlite-shm",
+    "**/DataUsage.sqlite",
+    "**/DataUsage.sqlite-wal",
+    "**/DataUsage.sqlite-shm",
+]
+
+[[analyzer]]
+id = "ios_media"
+name = "iOS媒体（相册/笔记）"
+scope = "evidence"
+trigger = "auto"
+requires = ["ios_analyzed"]
+category = "fmedia"
+inputs = [
+    "**/Photos.sqlite",
+    "**/Photos.sqlite-wal",
+    "**/Photos.sqlite-shm",
+    "**/NoteStore.sqlite",
+    "**/notes.sqlite",
+    "**/notes.sqlite-wal",
+    "**/notes.sqlite-shm",
+    "**/DCIM/**/*.jpg",
+    "**/DCIM/**/*.jpeg",
+    "**/DCIM/**/*.png",
+    "**/DCIM/**/*.gif",
+    "**/DCIM/**/*.heic",
+    "**/DCIM/**/*.mov",
+    "**/DCIM/**/*.mp4",
+    "**/Media/Profile/*.jpg",
+    "**/Media/Profile/*.jpeg",
+    "**/Media/Profile/*.png",
+    "**/Message/Media/**/*.jpg",
+    "**/Message/Media/**/*.jpeg",
+    "**/Message/Media/**/*.png",
+    "**/Message/Media/**/*.gif",
+    "**/Message/Media/**/*.mov",
+    "**/Message/Media/**/*.mp4",
+    "**/Message/Media/**/*.pdf",
+    "**/File Provider Storage/**/*.jpg",
+    "**/File Provider Storage/**/*.heic",
+    "**/File Provider Storage/**/*.png",
+    "**/File Provider Storage/**/*.gif",
+    "**/File Provider Storage/**/*.mov",
+    "**/File Provider Storage/**/*.mp4",
+    "**/File Provider Storage/**/*.pdf",
+    "**/File Provider Storage/**/*",
+    "**/group.com.apple.FileProvider.LocalStorage/**/*",
+    "**/com.apple.DocumentsApp/**/*",
+    "**/CloudDocs/**/*",
+    "**/Documents/**/*.jpg",
+    "**/Documents/**/*.heic",
+    "**/Documents/**/*.mov",
+    "**/Documents/**/*.mp4",
+]
